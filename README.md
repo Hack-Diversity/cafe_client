@@ -1,4 +1,5 @@
-# --- Hack.Diversity React/Redux Template ---
+# Moose test 
+### --- Hack.Diversity React/Redux Template ---
 
 ## Getting Started
 Some _really_ great instructions and stuff...eventually.
