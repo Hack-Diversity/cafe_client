@@ -1,6 +1,7 @@
 /* eslint-disable semi */
 import React from 'react';
 import Logo from './Logo';
+import ViewBooks from './viewbooks'
 
 const PageLayout = () =>
     <div className="page-layout--header">
@@ -12,6 +13,7 @@ const PageLayout = () =>
             </p>
         </div>
         <Logo />
+        <ViewBooks />
     </div>
 
 export default PageLayout;
