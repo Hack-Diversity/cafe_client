@@ -3,6 +3,7 @@ const HOME = '/';
 const ABOUT = '/about';
 const SIGN_UP = '/signup';
 const LOG_IN = '/login';
+const LIBRARY = '/library';
 
 // Post routes
 const ITEMS = '/items';
@@ -19,4 +20,5 @@ export const routes = {
     ITEM,
     ITEM_INSERT,
     ITEM_UPDATE,
+    LIBRARY
 };

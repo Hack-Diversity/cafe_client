@@ -26,6 +26,7 @@ import {
     ItemsTable,
     ItemUpdate
 } from './pages';
+import ViewBooks from './pages/viewbooks';
 
 class App extends Component {
     render() {
@@ -33,6 +34,7 @@ class App extends Component {
         const publicViews = (
             <Switch>
                 <Route exact path={routes.HOME} component={Welcome} />
+                <Route exact path={routes.LIBRARY} component={ViewBooks} />
                 <Route exact path={routes.ITEMS} component={ItemsList} />
                 <Route exact path={`${routes.ITEMS}/react-table-v6`} component={ItemsTable} />
                 <Route exact path={routes.ITEM_INSERT} component={ItemInsert} />

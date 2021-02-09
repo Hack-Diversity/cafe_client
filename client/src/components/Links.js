@@ -7,7 +7,7 @@ import Logo from './Logo';
 const HomeWrapper = styled.div``;
 
 const Collapse = styled.div.attrs({
-    // className: 'collapse navbar-collapse',
+    //className: 'collapse navbar-collapse',
 })`
     @media screen and (max-width: 420px) {
         display: flex;
@@ -40,7 +40,7 @@ const homeStyles = {
 
 const logoStyles = {
     height: '40px',
-    width: '40px',
+    width: '50px',
 };
 
 class Links extends Component {
@@ -54,30 +54,32 @@ class Links extends Component {
                         className="navbar-brand"
                         style={homeStyles}
                     >
-                        Home
+                        About Us
                     </Link>
                 </HomeWrapper>
                 <Collapse>
                     <List>
                         <Item>
                             <Link
-                                to="/items"
+                                to="/library"
                                 className="nav-link"
+                                style={{ color: 'black' }}
                             >
-                                Items
+                                Library
                             </Link>
                         </Item>
                         <Item>
                             <Link
                                 to="/item/create"
                                 className="nav-link"
+                                style={{ color: 'black' }}
                             >
-                                Create Item
+                                Menu
                             </Link>
                         </Item>
                         <Item>
-                            <Link to="/items/react-table-v6" className="nav-link">
-                                Items (react-table-v6)
+                            <Link to="/items/react-table-v6" className="nav-link" style={{ color: 'black' }}>
+                                Contact Us
                             </Link>
                         </Item>
                     </List>

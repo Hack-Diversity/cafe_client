@@ -12,8 +12,9 @@ const Container = styled.div.attrs({
 `;
 
 const Nav = styled.nav.attrs({
-    className: 'navbar navbar-expand-lg navbar-dark bg-dark',
+    className: 'navbar navbar-expand-lg navbar-dark',
 })`
+    background-color:#F3F3F3;
     margin-bottom: 20px;
 
     @media screen and (min-width: 992px) {

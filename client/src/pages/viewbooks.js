@@ -4,8 +4,10 @@ import {Link} from 'react-router-dom';
 
 const Book = props => (
     <div>
-        <h1>{props.book.title}</h1>
-        <img src = {props.book.image_url_s}></img>
+        <div>
+            <h2>{props.book.title}</h2>
+            <img src = {props.book.image_url_l}></img>
+        </div>
     </div>
 )
 
@@ -34,7 +36,10 @@ export default class ViewBooks extends Component {
     render() {
         return (
             <div>
-                {this.bookList()}
+                <h1><b>Available Books</b></h1>
+                <div>
+                    {this.bookList()}
+                </div>
             </div>
         )
     }

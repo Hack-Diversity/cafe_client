@@ -30,7 +30,11 @@
         "@upstatement/prettier-config": "^0.3.0"
     },
     "dependencies": {
+        "mongod": "^2.0.0",
+        "mongodb": "^3.6.3",
         "node-notifier": "^8.0.1",
-        "object-path": "^0.11.5"
+        "nodemon": "^2.0.7",
+        "object-path": "^0.11.5",
+        "yarn": "^1.22.10"
     }
 }
