@@ -1,47 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
+import {Link } from 'react-router-dom';
 import styled from 'styled-components';
-
-const Container = styled.div.attrs({
-    className: 'container1',
-})`
-    margin-left:auto;
-    margin-right:auto;
-    width:1600px;
-    height:100%;
-`;
-
-const Container2 = styled.div.attrs({
-    classname: 'bookdiv',
-})`
-    height:500px;
-    width:400px;
-    float:left;
-`;
-
-const BookDiv = styled.div.attrs({
-    className: 'container2',
-})`
-    margin-left:auto;
-    margin-right:auto;
-    width:300px;
-    height:470px;
-    padding-top:40px;
-    background-color:#EBEBEB;
-`;
-
-const Title = styled.div.attrs({
-    className: 'title',
-})`
-    display: flex;
-    align-items: center; /* vertical */
-    justify-content: center; /* horizontal */
-    font-size:20px;
-    font-family: Roboto;
-    width:300px;
-    height:130px;
-`
 
 const Book = props => (
     <Container2>

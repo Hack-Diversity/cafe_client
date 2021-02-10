@@ -10,6 +10,7 @@ const ITEMS = '/items';
 const ITEM = '/item/:id';
 const ITEM_INSERT = '/item/create';
 const ITEM_UPDATE = '/item/update/:id';
+const BOOK = '/library/:id'
 
 export const routes = {
     HOME,
