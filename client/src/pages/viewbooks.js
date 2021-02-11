@@ -41,13 +41,20 @@ const Title = styled.div.attrs({
     font-family: Roboto;
     width:300px;
     height:130px;
+    text-decoration:none;
 `
 
 const Book = props => (
     <Container2>
         <BookDiv>
-            <img src = {props.book.image_url_l} style = {{ width: 200, height: 300 }} ></img>
-            <Title>{props.book.title}</Title>
+            <Link to = {`/library/${props.book._id}`}>
+                <img src = {props.book.image_url_l} style = {{ width: 200, height: 300 }} ></img>
+            </Link>
+            <Title>
+                <Link to = {`/library/${props.book._id}`}>
+                    {props.book.title}
+                </Link>
+            </Title>
         </BookDiv>
     </Container2>
 )

@@ -10,7 +10,7 @@ const ITEMS = '/items';
 const ITEM = '/item/:id';
 const ITEM_INSERT = '/item/create';
 const ITEM_UPDATE = '/item/update/:id';
-const BOOK = '/library/:id'
+const BOOK = '/library/:_id'
 
 export const routes = {
     HOME,
@@ -21,5 +21,6 @@ export const routes = {
     ITEM,
     ITEM_INSERT,
     ITEM_UPDATE,
-    LIBRARY
+    LIBRARY,
+    BOOK
 };
