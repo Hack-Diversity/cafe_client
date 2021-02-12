@@ -61,7 +61,7 @@ class Links extends Component {
                     <List>
                         <Item>
                             <Link
-                                to="/library"
+                                to="/books"
                                 className="nav-link"
                                 style={{ color: 'black' }}
                             >

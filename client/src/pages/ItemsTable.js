@@ -121,7 +121,7 @@ class ItemsList extends Component {
                     return (
                         <Link
                             data-update-id={props.original._id}
-                            to={`/item/update/${props.original._id}`}
+                            to={`/book/update/${props.original._id}`}
                         >
                             Update Item
                         </Link>

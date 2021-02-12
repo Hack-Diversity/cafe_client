@@ -76,7 +76,7 @@ export default class ViewBook extends Component {
     }
 
     componentDidMount(){
-        axios.get('http://localhost:3000/books/' + this.props.match.params._id)
+        axios.get('http://localhost:3000/book/' + this.props.match.params._id)
             .then(response => {
                 this.setState({
                     title: response.data.title,

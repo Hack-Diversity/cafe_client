@@ -3,14 +3,14 @@ const HOME = '/';
 const ABOUT = '/about';
 const SIGN_UP = '/signup';
 const LOG_IN = '/login';
-const LIBRARY = '/library';
+const LIBRARY = '/books';
 
 // Post routes
-const ITEMS = '/library';
+const ITEMS = '/books';
 const ITEM = '/book/:id';
 const ITEM_INSERT = '/book/create';
 const ITEM_UPDATE = '/book/update/:id';
-const BOOK = '/library/:_id'
+const BOOK = '/books/:_id'
 
 export const routes = {
     HOME,

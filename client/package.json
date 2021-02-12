@@ -35,7 +35,9 @@
         "start": "set PORT=8000 && react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "make-standard": "eslint --fix ./src;exit 0",
+        "lint": "eslint ."
     },
     "eslintConfig": {
         "extends": "react-app"

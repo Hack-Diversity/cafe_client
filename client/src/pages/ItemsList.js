@@ -186,7 +186,7 @@ class ItemsTable extends Component {
                     return (
                         <Link
                             data-update-id={original._id}
-                            to={`/item/update/${props.value}`}
+                            to={`/book/update/${props.value}`}
                         >
                             Update Item
                         </Link>
