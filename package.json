@@ -9,9 +9,7 @@
         "yarn": ">=1.22.5"
     },
     "scripts": {
-        "startDev": "cd ./server && npm run server && cd ../client && npm run start",
-        "eslint": "eslint",
-        "lint": "eslint. 
+        "startDev": "cd ./server && npm run server && cd ../client && npm run start"
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -30,7 +28,7 @@
     },
     "devDependencies": {
         "@upstatement/prettier-config": "^0.3.0",
-        "eslint": "5",
+        "eslint": "^5.16.0",
         "eslint-plugin-import": "^2.22.1",
         "eslint-plugin-react": "^7.22.0"
     },
