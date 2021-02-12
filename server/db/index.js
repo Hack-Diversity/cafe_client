@@ -4,7 +4,11 @@ const url = process.env.MONGO_URI;
 
 
 mongoose
-    .connect(url, { useNewUrlParser: true })
+    .connect(url, {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useUnifiedTopology: true
+    })
     .catch(e => {
         console.error('Connection error', e.message);
     });
