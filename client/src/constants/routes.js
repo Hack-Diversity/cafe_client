@@ -6,7 +6,7 @@ const LOG_IN = '/login';
 const LIBRARY = '/library';
 
 // Post routes
-const ITEMS = '/books';
+const ITEMS = '/library';
 const ITEM = '/book/:id';
 const ITEM_INSERT = '/book/create';
 const ITEM_UPDATE = '/book/update/:id';
