@@ -11,7 +11,9 @@
     "scripts": {
         "debugServer": "npx nodemon inspect index.js",
         "start": "npx nodemon index.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "make-standard": "eslint --fix ./src;exit 0",
+        "lint": "eslint ."
     },
     "keywords": [],
     "author": "",

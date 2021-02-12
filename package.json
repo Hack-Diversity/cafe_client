@@ -9,7 +9,9 @@
         "yarn": ">=1.22.5"
     },
     "scripts": {
-        "startDev": "cd ./server && npm run server && cd ../client && npm run start"
+        "startDev": "cd ./server && npm run start && cd ../client && npm run start",
+        "make-standard": "eslint --fix ./src;exit 0",
+        "lint": "eslint ."
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -37,6 +39,7 @@
         "eslint-plugin-promise": "^4.3.1",
         "eslint-plugin-react": "^7.22.0",
         "eslint-plugin-react-hooks": "^4.2.0",
+        "g": "^2.0.1",
         "typescript-eslint": "0.0.1-alpha.0"
     },
     "dependencies": {
