@@ -6,10 +6,10 @@ const LOG_IN = '/login';
 const LIBRARY = '/library';
 
 // Post routes
-const ITEMS = '/items';
-const ITEM = '/item/:id';
-const ITEM_INSERT = '/item/create';
-const ITEM_UPDATE = '/item/update/:id';
+const ITEMS = '/books';
+const ITEM = '/book/:id';
+const ITEM_INSERT = '/book/create';
+const ITEM_UPDATE = '/book/update/:id';
 const BOOK = '/library/:_id'
 
 export const routes = {

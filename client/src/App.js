@@ -28,7 +28,7 @@ import {
 } from './pages';
 
 import ViewBooks from './pages/viewbooks';
-import ViewBook from './pages/viewbook';
+import ViewBook from './pages/viewBook';
 
 
 class App extends Component {
