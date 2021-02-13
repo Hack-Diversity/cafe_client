@@ -8,8 +8,8 @@ const LIBRARY = '/books';
 // Post routes
 const ITEMS = '/books';
 const ITEM = '/book/:id';
-const ITEM_INSERT = '/book/create';
-const ITEM_UPDATE = '/book/update/:id';
+const ITEM_INSERT = '/book-create';
+const ITEM_UPDATE = '/book/:id';
 const BOOK = '/books/:_id'
 
 export const routes = {
