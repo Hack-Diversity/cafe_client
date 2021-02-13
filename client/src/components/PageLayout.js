@@ -1,6 +1,6 @@
 /* eslint-disable semi */
 import React from 'react';
-import Logo from './Logo';
+// import Logo from './Logo';
 
 const PageLayout = () =>
     <div className="page-layout--header">

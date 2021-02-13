@@ -47,7 +47,7 @@ const logoStyles = {
   height: '180px',
   width: '190px',
   marginLeft: '-250px',
-  marginRight: '450px'
+  marginRight: '350px'
 };
 
 class Links extends Component {
@@ -98,6 +98,17 @@ class Links extends Component {
           marginRight: '80px'
         }
       } > Contact Us
+      </Link>
+      < /Item >
+      <Item >
+      <Link to = "/book/react-table-v6"
+      className = "navbar-brand"
+      style = {
+        {
+          homeStyles,
+          marginRight: '80px'
+        }
+      } > Admin
       </Link>
       < /Item >
       </List>

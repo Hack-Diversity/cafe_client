@@ -14,7 +14,7 @@ class Logo extends Component {
       logoStyles
     } = this.props;
 
-    return ( < Wrapper href = "https://localtest:8000" >
+    return ( < Wrapper href = "/" >
       <
       img src = {
         logo
