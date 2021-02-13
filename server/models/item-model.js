@@ -3,34 +3,41 @@ const Schema = mongoose.Schema;
 
 const Item = new Schema(
     {
-        name: {
+        title: {
             type: String,
             required: true
         },
-        daysOfWeek: {
-            type: Map,
-            of: String,
-            required: false
+        author: {
+            type: String,
+            required: true
         },
-        timeframeNote: {
+        publication_year: {
             type: String,
             required: false
         },
-        priority: {
+        publisher: {
+            type: String,
+            required: false
+        },
+        copies: {
             type: Number,
-            required: false
-        },
-        content: {
-            type: String,
             required: true
         },
+        available: {
+            type: Number,
+            required: true
+        },
+        isbn: {
+            type: Number,
+            required: true
+        }
     },
     { timestamps: true },
 );
 
 module.exports = mongoose.model('books', Item);
 
-/* 
+/*
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
