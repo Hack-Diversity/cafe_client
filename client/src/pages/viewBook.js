@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div.attrs({
@@ -76,7 +76,7 @@ export default class ViewBook extends Component {
     }
 
     componentDidMount(){
-        axios.get('http://localhost:3000/book/' + this.props.match.params._id)
+        axios.get('http://localhost:8000/book/' + this.props.match.params._id)
             .then(response => {
                 this.setState({
                     title: response.data.title,
