@@ -2,7 +2,7 @@ import https from 'https';
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:3000/api',
+    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:3000/',
     hostname: process.env.REEACT_APP_API_HOST || 'http://localhost:3000/',
     httpsAgent: https.Agent({
         rejectUnauthorized: false,
@@ -13,7 +13,7 @@ const api = axios.create({
 
 export const getAllItems = payload => api.get(`/books`, payload);
 export const getItemById = id => api.get(`/book/${id}`);
-export const insertItem = payload => api.post(`/book`, payload);
+export const insertItem = payload => api.post(`/book-create`, payload);
 export const updateItemById = (id, payload) => api.put(`/book/${id}`, payload);
 export const deleteItemById = id => api.delete(`/book/${id}`);
 

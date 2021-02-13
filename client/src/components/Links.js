@@ -79,7 +79,7 @@ class Links extends Component {
       </Link>
       < / Item >
       < Item >
-      < Link to = "/book/create"
+      < Link to = "/book-create"
       className = "navbar-brand"
       style = {
         {
@@ -90,7 +90,7 @@ class Links extends Component {
       </Link>
       < /Item >
       <Item >
-      <Link to = "/book/react-table-v6"
+      <Link to = "/book/"
       className = "navbar-brand"
       style = {
         {
@@ -101,7 +101,7 @@ class Links extends Component {
       </Link>
       < /Item >
       <Item >
-      <Link to = "/book/react-table-v6"
+      <Link to = "/book/"
       className = "navbar-brand"
       style = {
         {
