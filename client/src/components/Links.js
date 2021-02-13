@@ -47,7 +47,7 @@ const logoStyles = {
   height: '180px',
   width: '190px',
   marginLeft: '-250px',
-  marginRight: '300px'
+  marginRight: '450px'
 };
 
 class Links extends Component {
