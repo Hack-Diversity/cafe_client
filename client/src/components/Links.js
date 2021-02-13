@@ -4,11 +4,14 @@ import styled from 'styled-components';
 
 import Logo from './Logo';
 
-const HomeWrapper = styled.div``;
+const HomeWrapper = styled.div`
+  /* margin-right: 20px; */
+`
 
 const Collapse = styled.div.attrs({
-    //className: 'collapse navbar-collapse',
-})`
+  //className: 'collapse navbar-collapse',
+})
+`
     @media screen and (max-width: 420px) {
         display: flex;
         flex-grow: 1;
@@ -16,8 +19,9 @@ const Collapse = styled.div.attrs({
 `;
 
 const List = styled.div.attrs({
-    className: 'navbar-nav mr-auto',
-})`
+  className: 'navbar-nav mr-auto',
+})
+`
     @media screen and (max-width: 420px) {
         flex-direction: row;
         justify-content: space-between;
@@ -27,66 +31,80 @@ const List = styled.div.attrs({
 `;
 
 const Item = styled.div.attrs({
-    // className: 'collapse navbar-collapse',
-})`
+  // className: 'collapse navbar-collapse',
+})
+`
     @media screen and (max-width: 420px) {
         /* margin-right: 2em; */
     }
 `;
 
 const homeStyles = {
-    marginLeft: `1em`
+  color: 'black'
 };
 
 const logoStyles = {
-    height: '40px',
-    width: '50px',
+  height: '180px',
+  width: '190px',
+  marginLeft: '-250px',
+  marginRight: '450px'
 };
 
 class Links extends Component {
-    render() {
-        return (
-            <React.Fragment>
-                <HomeWrapper>
-                    <Logo logoStyles={logoStyles} />
-                    <Link
-                        to="/"
-                        className="navbar-brand"
-                        style={homeStyles}
-                    >
-                        About Us
-                    </Link>
-                </HomeWrapper>
-                <Collapse>
-                    <List>
-                        <Item>
-                            <Link
-                                to="/books"
-                                className="nav-link"
-                                style={{ color: 'black' }}
-                            >
-                                Library
-                            </Link>
-                        </Item>
-                        <Item>
-                            <Link
-                                to="/item/create"
-                                className="nav-link"
-                                style={{ color: 'black' }}
-                            >
-                                Menu
-                            </Link>
-                        </Item>
-                        <Item>
-                            <Link to="/items/react-table-v6" className="nav-link" style={{ color: 'black' }}>
-                                Contact Us
-                            </Link>
-                        </Item>
-                    </List>
-                </Collapse>
-            </React.Fragment>
-        );
-    }
+  render() {
+    return ( <
+      React.Fragment >
+      < HomeWrapper >
+      < Logo logoStyles = {
+        logoStyles
+      }/>
+      < /HomeWrapper >
+      < Collapse >
+      < List >
+      < Link to = "/"
+      className = "navbar-brand"
+      style = {{
+        homeStyles,
+        marginRight: '80px'
+      }} > About Us </Link>
+      < Item >
+      < Link to = "/books"
+      className = "navbar-brand"
+      style = {
+        {
+          homeStyles,
+          marginRight: '80px'
+        }
+      } > Library
+      </Link>
+      < / Item >
+      < Item >
+      < Link to = "/book/create"
+      className = "navbar-brand"
+      style = {
+        {
+          homeStyles,
+          marginRight: '80px'
+        }
+      } > Menu
+      </Link>
+      < /Item >
+      <Item >
+      <Link to = "/book/react-table-v6"
+      className = "navbar-brand"
+      style = {
+        {
+          homeStyles,
+          marginRight: '80px'
+        }
+      } > Contact Us
+      </Link>
+      < /Item >
+      </List>
+      < /Collapse >
+      </React.Fragment>
+    );
+  }
 }
 
 export default Links;

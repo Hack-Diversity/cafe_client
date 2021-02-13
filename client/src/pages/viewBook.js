@@ -99,7 +99,7 @@ export default class ViewBook extends Component {
         return (
             <Container>
             <BookDiv>
-                <img src = {this.state.image_url_l}></img>
+                <img src = {this.state.image_url_l} alt="Book Cover"></img>
             </BookDiv>
             <InfoDiv>
                 <h1>{this.state.title}</h1>

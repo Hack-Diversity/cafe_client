@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+// import Navbar from 'react-bootstrap/Navbar'
+
 
 import Links from './Links';
 
@@ -12,10 +14,11 @@ const Container = styled.div.attrs({
 `;
 
 const Nav = styled.nav.attrs({
-    className: 'navbar navbar-expand-lg navbar-dark',
+    className: 'navbar navbar-expand-lg navbar-light',
 })`
-    background-color:#F3F3F3;
-    margin-bottom: 20px;
+    background-color:#FFF;
+    height: 210px;
+    margin-bottom: -20px;
 
     @media screen and (min-width: 992px) {
         padding: 0.5em 25%;
@@ -30,6 +33,7 @@ class NavBar extends Component {
                     <Links />
                 </Nav>
             </Container>
+
         );
     }
 }
