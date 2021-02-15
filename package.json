@@ -40,8 +40,7 @@
         "eslint-plugin-react": "^7.22.0",
         "eslint-plugin-react-hooks": "^4.2.0",
         "g": "^2.0.1",
-        "typescript-eslint": "0.0.1-alpha.0",
-        "webpack": "^4.44.2"
+        "typescript-eslint": "0.0.1-alpha.0"
     },
     "dependencies": {
         "eslint-config-react-app": "^6.0.0",
