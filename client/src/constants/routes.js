@@ -6,7 +6,7 @@ const LOG_IN = '/login';
 const LIBRARY = '/books';
 
 // Post routes
-const ITEMS = '/books';
+// const ITEMS = '/books';
 const ITEM = '/book/:id';
 const ITEM_INSERT = '/book-create';
 const ITEM_UPDATE = '/book/:id';
@@ -17,7 +17,7 @@ export const routes = {
     ABOUT,
     SIGN_UP,
     LOG_IN,
-    ITEMS,
+    // ITEMS,
     ITEM,
     ITEM_INSERT,
     ITEM_UPDATE,

@@ -3,6 +3,14 @@
 // the constructor method of each custom error type to match the pattern that
 // Express and Mongoose use for custom errors.
 //custom errors for route.js
+class OwnershipError extends Error {
+  constructor () {
+    super()
+    this.name = 'OwnershipError'
+    this.message = 'The provided token does not match the owner of this document'
+  }
+}
+
 class DocumentNotFoundError extends Error {
   constructor () {
     super()
@@ -27,7 +35,20 @@ class BadCredentialsError extends Error {
   }
 }
 
+// this method checks if the user trying to modify a resource is the owner of
+// resource, and throws an error if not
 
+// `requestObject` should be the actual `req` object from the route file
+const requireOwnership = (requestObject, resource) => {
+  // `requestObject.user` will be defined in any route that uses `requireToken`
+  // `requireToken` MUST be passed to the route as a second argument
+  const owner = resource.owner._id ? resource.owner._id : resource.owner
+  //  check if the resource.owner is an object in case populate is being used
+  //  if it is, use the `_id` property and if not, just use its value
+  if (!requestObject.user._id.equals(owner)) {
+    throw new OwnershipError()
+  }
+}
 // if the client passes an ID that isn't in the DB, we want to return 404
 const handle404 = record => {
   if (!record) {
@@ -38,6 +59,7 @@ const handle404 = record => {
 }
 
 module.exports = {
+  requireOwnership,
   handle404,
   BadParamsError,
   BadCredentialsError
