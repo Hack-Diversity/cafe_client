@@ -29,6 +29,7 @@ import {
 
 import ViewBooks from './pages/viewbooks';
 import ViewBook from './pages/viewBook';
+import Signin from './pages/signin';
 
 
 class App extends Component {
@@ -38,6 +39,7 @@ class App extends Component {
             <Switch>
                 <Route exact path={routes.HOME} component={Welcome} />
                 <Route exact path={routes.LIBRARY} component={ViewBooks} />
+                <Route exact path={routes.LOG_IN} component={Signin} />
                 <Route exact path={routes.ITEMS} component={ItemsList} />
                 <Route exact path={`${routes.ITEMS}/react-table-v6`} component={ItemsTable} />
                 <Route exact path={routes.ITEM_INSERT} component={ItemInsert} />
