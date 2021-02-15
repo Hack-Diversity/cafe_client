@@ -13,6 +13,7 @@
 // module.exports = router;
 //using express to create routes
 const express = require('express');
+const passport = require('passport')
 //call book schema file
 const Book = require('../models/item-model');
 //call custom errors file - PA
@@ -20,6 +21,10 @@ const errors = require('../lib/custom_errors');
 // call function handle404 from custom_errors - PA
 const error404 = errors.handle404;
 //create express router and assign to a variable - PA
+const ownershipReq = errors.requireOwnership
+
+const requireToken = passport.authenticate('bearer', { session: false })
+
 const router = express.Router();
 
 //INDEX - GET all books
@@ -56,9 +61,11 @@ router.get('/book/:id', (req, res, next) => {
 
 // CREATE
 // POST /surveys
-router.post('/book-create', (req, res, next) => {
+router.post('/book-create', requireToken, (req, res, next) => {
   // require the entire body of the book schema
   const book = req.body.book
+
+  book.owner = req.user.id
   //create using variable book for the body
   Book.create(book)
     // respond to succesful `create` with status 201 and JSON of new "survey"
@@ -85,17 +92,17 @@ router.post('/book-create', (req, res, next) => {
 // })
 
 // UPDATE - PATCH changes one entry by id
-router.patch('/book/:id', (req, res, next) => {
+router.patch('/book/:id', requireToken, (req, res, next) => {
   //mongoose findByIdAndUpdate selects the id of the instance
   //and sets by requiring the body of the book
-  Book.findByIdAndUpdate(req.params.id, {
-    $set: req.body.book
-})
+  // delete req.body.book.owner
+  Book.findById(req.params.id)
 //handle the error
   .then(error404)
-  // .then(book => {
-  //   return book.updateOne(req.body.book)
-  // })\
+  .then(book => {
+    ownershipReq(req, book)
+    return book.updateOne(req.body.book)
+  })
   //if successful return status 204
   .then(() => res.sendStatus(204))
   //if not, catch next
@@ -104,12 +111,17 @@ router.patch('/book/:id', (req, res, next) => {
 })
 
 //DELETE a book by ID
-router.delete('/book/:id', (req, res, next) => {
+router.delete('/book/:id', requireToken, (req, res, next) => {
   //uses the variable Book for the book.js Schema
   //findByIdAndRemove Mongoose
-  Book.findByIdAndRemove(req.params.id)
+  Book.findById(req.params.id)
   //handle errors
   .then(error404)
+  .then(book => {
+    ownershipReq(req, book)
+
+    book.deleteOne()
+  })
   //if successful passes sucess status
   .then(() => res.sendStatus(204))
   //if not, error

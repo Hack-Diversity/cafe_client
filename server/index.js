@@ -40,10 +40,11 @@ const bodyParser = require('body-parser');
 
 // import routes
 const booksRoute = require('./routes/item-router');
+const userRoute = require('./routes/user-router');
 // const adminRoute = require('./server/routes/admin_route');
 //import middleware files to handle errors
 const errorMessages = require('./lib/errors');
-
+const auth = require('./lib/auth');
 //connect to mongoose by using database.js
 mongoose.connect(dbConfig)
 
@@ -53,12 +54,13 @@ const app = express();
 //create ports to be used, while developing, access the port at
 //localhost:4741
 const serverPort = 3000;
-const clientPort = 8000;
 //call variable app (express) and use package cors
-app.use(cors({ origin: "https://hack-diversity.github.io" || `http://localhost:${clientPort}` }));
+app.use(cors());
 
 // Create a port assgining the port 4741
 const port = process.env.PORT || serverPort;
+
+app.use(auth)
 
 //assigns to variable app, app Init
 //express uses the body-parser packahe the encode the url
@@ -75,6 +77,7 @@ app.get('/', (req, res) => {
 })
 //API route - calls and uses file routes/book_route
 app.use(booksRoute);
+app.use(userRoute);
 // app.use(adminRoute);
 //calls and uses file lib/errors.js
 app.use(errorMessages);
