@@ -16,6 +16,14 @@ const Wrapper = styled.div`
     padding: 0 40px 40px 40px;
 `;
 
+const Container = styled.div`
+    padding: 50px;
+`;
+
+const HomeLinks = styled.div`
+
+`;
+
 class ItemsList extends Component {
 
     componentDidMount() {
@@ -177,6 +185,19 @@ class ItemsList extends Component {
 
         return (
             <Wrapper>
+              <Container>
+
+                <h4>Welcome, {this.props.user.email}</h4>
+                <HomeLinks>
+                <Link to={'/book-create'}>Create a Book</Link>
+                </HomeLinks>
+                <HomeLinks>
+                <Link to={'/password-change'}>Change Password</Link>
+                </HomeLinks>
+                <HomeLinks>
+                <Link to={'/admin-signout'}>Logout</Link>
+              </HomeLinks>
+              </Container>
                 {(
                     (items || []).length > 0 // defeats the purpose of using `isLoading` prop?
                 ) ? (

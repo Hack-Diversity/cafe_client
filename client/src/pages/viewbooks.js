@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
-// import apiUrl from '../api/index'
 import * as actions from '../actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 const Container = styled.div.attrs({
     className: 'container1',
 })`
     margin-left:auto;
     margin-right:auto;
-    width:1600px;
+    width:100%;
     height:100%;
 `;
 
@@ -49,47 +50,54 @@ const Title = styled.div.attrs({
 const Book = props => (
     <Container2>
         <BookDiv>
-
-                <img src = {props.image_url_l} style = {{ width: 200, height: 300 }} alt="Book Cover" ></img>
-
-            <Title>
-
-                    {props.title}
-
-            </Title>
+            <img src = {this.props.image_url_l} style = {{ width: 200, height: 300 }}
+              alt="Book" ></img>
+            <Title>{this.props.title}</Title>
         </BookDiv>
     </Container2>
 )
 
-export default class ViewBooks extends Component {
+class ViewBooks extends Component {
     constructor(props) {
         super(props);
         this.state = {books: []};
     }
 
-  componentDidMount() {
-    console.log("ItemsList: props");
-    console.log(this.props);
-    // if (((this.props.itemData || {}).items || []).length) return;
+    componentDidMount() {
+        console.log("ItemsList: props");
+        console.log(this.props);
+        // if (((this.props.itemData || {}).items || []).length) return;
 
-    // this.props.fetchAllItems()
-}
-
+        this.props.fetchAllItems()
+    }
+    //
     bookList(){
-        return this.state.books.map(currentBook => {
-            return <Book book = {currentBook} key = {currentBook._id}/>;
-        })
-    }
+       return this.state.books.map(currentBook => {
+           return <Book book = {currentBook} key = {currentBook._id}/>;
+       })
+   }
 
-    render() {
-        return (
-            <Container>
-                <h1><b>Available Books</b></h1>
-                <br></br>
-                <div>
-                    {this.bookList()}
-                </div>
-            </Container>
-        )
-    }
-}
+   render() {
+     const items = this.props.itemData || {}
+     console.log(items)
+       return (
+           <Container>
+               <h1><b>Available Books</b></h1>
+               <br></br>
+               <div>
+                   {this.bookList()}
+               </div>
+           </Container>
+       )
+   }
+  }
+
+  const mapStateToProps = state => {
+      return {
+        ...state
+      }
+  }
+
+  const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
+
+  export default connect(mapStateToProps, mapDispatchToProps)(ViewBooks);

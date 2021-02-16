@@ -22,7 +22,6 @@ import {
 // Pages
 import {
     ItemInsert,
-    ItemsList,
     ItemsTable,
     ItemUpdate
 } from './pages';
@@ -30,7 +29,8 @@ import {
 import ViewBooks from './pages/viewbooks';
 // import ViewBook from './pages/viewBook';
 import Signin from './pages/signin';
-// import AuthUser from './api/AuthUser'
+import SignOut from './pages/signout';
+import AuthUser from './api/authUser'
 
 
 class App extends Component {
@@ -47,16 +47,21 @@ class App extends Component {
 
   clearUser = () => this.setState({ user: null })
     render() {
+      const { user } = this.state
 
         const publicViews = (
             <Switch>
                 <Route exact path={routes.HOME} component={Welcome} />
-                <Route exact path={routes.LOG_IN} component={Signin}
-                  render={() => ( <Signin setUser={this.setUser} />
+                <Route exact path={routes.LOG_IN} render={() => (
+                    <Signin setUser={this.setUser} />
                 )} />
-                <Route exact path={routes.ITEM} component={ItemsList} />
                 <Route exact path={routes.LIBRARY} component={ViewBooks} />
-                <Route exact path={`${routes.LIBRARY}/list`} component={ItemsTable} />
+                <AuthUser exact user={user} path={`${routes.LIBRARY}/list`} render={({ match }) => (
+                    <ItemsTable match={match} user={user} />
+                  )} />
+                <AuthUser exact user={user} path={routes.LOG_OUT} render={() => (
+                    <SignOut clearUser={this.clearUser} user={user} />
+                  )} />
                 <Route exact path={routes.ITEM_INSERT} component={ItemInsert} />
                 <Route exact path={routes.ITEM_UPDATE} component={ItemUpdate} />
 
