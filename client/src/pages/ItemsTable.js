@@ -192,7 +192,7 @@ class ItemsList extends Component {
                 <Link to={'/book-create'}>Create a Book</Link>
                 </HomeLinks>
                 <HomeLinks>
-                <Link to={'/password-change'}>Change Password</Link>
+                <Link to={'/admin-password'}>Change Password</Link>
                 </HomeLinks>
                 <HomeLinks>
                 <Link to={'/admin-signout'}>Logout</Link>
