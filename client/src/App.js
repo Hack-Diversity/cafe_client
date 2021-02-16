@@ -40,7 +40,6 @@ class App extends Component {
 
     this.state = {
       user: null,
-      msgAlerts: []
     }
   }
 
@@ -57,9 +56,11 @@ class App extends Component {
                     <Signin setUser={this.setUser} />
                 )} />
                 <Route exact path={routes.LIBRARY} component={ViewBooks} />
+
                 <AuthUser exact user={user} path={`${routes.LIBRARY}/list`} render={({ match }) => (
                     <ItemsTable match={match} user={user} />
                   )} />
+
                 <AuthUser exact user={user} path={routes.LOG_OUT} render={() => (
                     <SignOut clearUser={this.clearUser} user={user} />
                   )} />
@@ -68,8 +69,13 @@ class App extends Component {
                     <Change user={user} />
                   )} />
 
-                <Route exact path={routes.ITEM_INSERT} component={ItemInsert} />
-                <Route exact path={routes.ITEM_UPDATE} component={ItemUpdate} />
+                <AuthUser exact user={user} path={routes.ITEM_INSERT} render={({ match }) => (
+                  <ItemInsert match={match} user={user} />
+                  )} />
+
+                <AuthUser exact user={user} path={routes.ITEM_UPDATE} render={({ match }) => (
+                    <ItemUpdate match={match} user={user} />
+                  )} />
 
             </Switch>
         );
