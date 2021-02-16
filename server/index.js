@@ -62,6 +62,7 @@ app.use(bodyParser.urlencoded({
 }));
 //call variable app (express) and use package cors
 app.use(cors());
+app.options('*', cors())
 //express uses the body-parser package and turns into json
 app.use(bodyParser.json());
 // Create a port assgining the port 4741
