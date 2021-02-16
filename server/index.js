@@ -54,21 +54,20 @@ const app = express();
 //create ports to be used, while developing, access the port at
 //localhost:4741
 const serverPort = 3000;
-//call variable app (express) and use package cors
-app.use(cors());
-
-// Create a port assgining the port 4741
-const port = process.env.PORT || serverPort;
-
-app.use(auth)
 
 //assigns to variable app, app Init
 //express uses the body-parser packahe the encode the url
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+//call variable app (express) and use package cors
+app.use(cors());
 //express uses the body-parser package and turns into json
 app.use(bodyParser.json());
+// Create a port assgining the port 4741
+const port = process.env.PORT || serverPort;
+
+app.use(auth)
 
 //express uses method GET to set a success message on main page
 //this is a test, can and should be removed in the future
@@ -76,7 +75,7 @@ app.get('/', (req, res) => {
   res.json({"message": "Success"})
 })
 //API route - calls and uses file routes/book_route
-app.use(booksRoute);
+app.use('/api', booksRoute);
 app.use(userRoute);
 // app.use(adminRoute);
 //calls and uses file lib/errors.js

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
+// import apiUrl from '../api/index'
+import * as actions from '../actions';
 
 const Container = styled.div.attrs({
     className: 'container1',
@@ -47,13 +49,13 @@ const Title = styled.div.attrs({
 const Book = props => (
     <Container2>
         <BookDiv>
-            <Link to = {`/books/${props.book._id}`}>
-                <img src = {props.book.image_url_l} style = {{ width: 200, height: 300 }} alt="Book Cover" ></img>
-            </Link>
+
+                <img src = {props.image_url_l} style = {{ width: 200, height: 300 }} alt="Book Cover" ></img>
+
             <Title>
-                <Link to = {`/books/${props.book._id}`}>
-                    {props.book.title}
-                </Link>
+
+                    {props.title}
+
             </Title>
         </BookDiv>
     </Container2>
@@ -65,15 +67,13 @@ export default class ViewBooks extends Component {
         this.state = {books: []};
     }
 
-    componentDidMount(){
-        axios.get('http://localhost:8000/books/')
-            .then(response => {
-                this.setState({ books: response.data })
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
+  componentDidMount() {
+    console.log("ItemsList: props");
+    console.log(this.props);
+    // if (((this.props.itemData || {}).items || []).length) return;
+
+    // this.props.fetchAllItems()
+}
 
     bookList(){
         return this.state.books.map(currentBook => {
