@@ -30,6 +30,7 @@ import ViewBooks from './pages/viewbooks';
 // import ViewBook from './pages/viewBook';
 import Signin from './pages/signin';
 import SignOut from './pages/signout';
+import Change from './pages/change-pw';
 import AuthUser from './api/authUser'
 
 
@@ -62,6 +63,11 @@ class App extends Component {
                 <AuthUser exact user={user} path={routes.LOG_OUT} render={() => (
                     <SignOut clearUser={this.clearUser} user={user} />
                   )} />
+
+                <AuthUser exact user={user} path={routes.PW_CHANGE} render={() => (
+                    <Change user={user} />
+                  )} />
+
                 <Route exact path={routes.ITEM_INSERT} component={ItemInsert} />
                 <Route exact path={routes.ITEM_UPDATE} component={ItemUpdate} />
 

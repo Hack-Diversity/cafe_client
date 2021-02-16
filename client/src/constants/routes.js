@@ -4,6 +4,7 @@ const ABOUT = '/about';
 // const SIGN_UP = '/signup';
 const LOG_IN = '/admin-signin';
 const LOG_OUT = '/admin-signout';
+const PW_CHANGE = '/admin-password';
 const LIBRARY = '/books';
 
 // Post routes
@@ -18,6 +19,7 @@ export const routes = {
     ABOUT,
     LOG_IN,
     LOG_OUT,
+    PW_CHANGE,
     ITEM,
     ITEM_INSERT,
     ITEM_UPDATE,

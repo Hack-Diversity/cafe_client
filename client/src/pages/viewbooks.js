@@ -50,9 +50,16 @@ const Title = styled.div.attrs({
 const Book = props => (
     <Container2>
         <BookDiv>
-            <img src = {this.props.image_url_l} style = {{ width: 200, height: 300 }}
-              alt="Book" ></img>
-            <Title>{this.props.title}</Title>
+            <Link to = {`/books${props.book._id}`}>
+                <img src = {props.book.image_url_l}
+                  style = {{ width: 200, height: 300 }}
+                  alt="Book Cover"></img>
+            </Link>
+            <Title>
+                <Link to = {`/books${props.book._id}`}>
+                    {props.book.title}
+                </Link>
+            </Title>
         </BookDiv>
     </Container2>
 )
@@ -70,34 +77,31 @@ class ViewBooks extends Component {
 
         this.props.fetchAllItems()
     }
-    //
+
     bookList(){
-       return this.state.books.map(currentBook => {
-           return <Book book = {currentBook} key = {currentBook._id}/>;
-       })
-   }
+        return this.state.books.map(currentBook => {
+            return <Book book = {currentBook} key = {currentBook._id}/>;
+        })
+    }
 
-   render() {
-     const items = this.props.itemData || {}
-     console.log(items)
-       return (
-           <Container>
-               <h1><b>Available Books</b></h1>
-               <br></br>
-               <div>
-                   {this.bookList()}
-               </div>
-           </Container>
-       )
-   }
-  }
+    render() {
+        return (
+            <Container>
+                <h1><b>Available Books</b></h1>
+                <br></br>
+                <div>
+                    {this.bookList()}
+                </div>
+            </Container>
+        )
+    }
+}
+const mapStateToProps = state => {
+    return {
+      ...state
+    }
+}
 
-  const mapStateToProps = state => {
-      return {
-        ...state
-      }
-  }
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
-  const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
-
-  export default connect(mapStateToProps, mapDispatchToProps)(ViewBooks);
+export default connect(mapStateToProps, mapDispatchToProps)(ViewBooks);
