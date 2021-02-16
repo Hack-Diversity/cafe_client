@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { useTable } from 'react-table';
 import * as actions from '../actions';
 import { DeleteButton } from '../components/buttons';
+import styled from 'styled-components';
 
 import MaUTable from '@material-ui/core/Table'
 import {
@@ -15,7 +16,46 @@ import {
     TableRow,
 } from '@material-ui/core';
 
-import styled from 'styled-components';
+const Container = styled.div.attrs({
+    className: 'container1',
+})`
+    margin-left:auto;
+    margin-right:auto;
+    width:1600px;
+    height:100%;
+`;
+
+const Container2 = styled.div.attrs({
+    classname: 'bookdiv',
+})`
+    height:500px;
+    width:400px;
+    float:left;
+`;
+
+const BookDiv = styled.div.attrs({
+    className: 'container2',
+})`
+    margin-left:auto;
+    margin-right:auto;
+    width:300px;
+    height:470px;
+    padding-top:40px;
+    background-color:#EBEBEB;
+`;
+
+const Title = styled.div.attrs({
+    className: 'title',
+})`
+    display: flex;
+    align-items: center; /* vertical */
+    justify-content: center; /* horizontal */
+    font-size:20px;
+    font-family: Roboto;
+    width:300px;
+    height:130px;
+    text-decoration:none;
+`
 
 const Wrapper = styled.div`
     padding: 0 40px 40px 40px;
@@ -103,123 +143,175 @@ class ItemsTable extends Component {
         console.log(items);
 
         const columns = [
+          {
+                Header: 'Book Cover:',
+                accessor: 'image_l',
+                Cell: props => {
+                  console.log(props);
+                    return (
+                      <span data-item-id={props.image_url_l}>
+                           <img src={props.image_url_l} alt="Book Cover"/>
+                           </span>
+                    )
+                }
+            },
             {
-                Header: 'ID',
-                accessor: '_id',
+                Header: 'Title:',
+                accessor: 'title',
                 // filterable: true,
                 Cell: props => {
                     console.log(props);
-                    const { original } = props.cell.row;
                     return (
-                        <span data-item-id={original._id}>
+                        <span data-item-id={props.title}>
                             {props.value}
                         </span>
                     )
                 }
             },
-            {
-                Header: 'Name',
-                accessor: 'name',
-                // filterable: true,
-                Cell: props => {
-                    const { original } = props.cell.row;
-                    return (
-                        <span data-name={original.name}>
-                            {props.value}
-                        </span>
-                    );
-                }
-            },
-            {
-                Header: 'Day(s)',
-                accessor: 'daysOfWeek',
-                // filterable: true,
-                Cell: props => {
-                    const { daysOfWeek } = props.cell.row.original;
-                    let daysToDisplay = "";
-                    if (daysOfWeek && typeof daysOfWeek === "object") {
-                        for (const day in daysOfWeek) {
-                            daysToDisplay = daysToDisplay === "" ? daysOfWeek[day] : `${daysToDisplay}, ${daysOfWeek[day]}`;
-                        }
+          ];
 
-                    }
-                    return (
-                        <span
-                            data-daysofweek={daysOfWeek && JSON.stringify(daysOfWeek)}
-                            data-daysofweek-by-id={props.value}
-                        >
-                            {daysToDisplay || "-"}
-                        </span>
-                    );
-                }
-            },
-            {
-                Header: 'Timeframe',
-                accessor: 'timeframeNote',
-                Cell: props => {
-                    const { original } = props.cell.row;
-                    return (
-                        <span data-timeframe={original.timeframeNote}>
-                            {props.value || "-"}
-                        </span>
-                    );
-                },
-            },
-            {
-                Header: 'Priority',
-                accessor: 'priority',
-                // filterable: true,
-                Cell: props => {
-                    const { original } = props.cell.row;
-                    return (
-                        <span data-priority={original.priority}>
-                            {props.value}
-                        </span>
-                    );
-                },
-            },
-            {
-                Header: 'Update',
-                accessor: '_update',
-                Cell: props => {
-                    const { original } = props.cell.row;
-                    return (
-                        <Link
-                            data-update-id={original._id}
-                            to={`/book/update/${props.value}`}
-                        >
-                            Update Item
-                        </Link>
-                    );
-                },
-            },
-            {
-                Header: 'Delete',
-                accessor: '_delete',
-                Cell: props => {
-                    const { original } = props.cell.row;
-                    return (
-                        <span data-delete-id={original._id}>
-                            <DeleteButton
-                                id={original._id}
-                                onDelete={this.handleRemoveItem}
-                            />
-                        </span>
-                    );
-                },
-            },
-        ];
+
+        //     {
+        //         Header: 'Book Title',
+        //         accessor: 'title',
+        //         // filterable: true,
+        //         Cell: props => {
+        //             return (
+        //                 <span data-name={props.title}>
+        //                     {props.value}
+        //                 </span>
+        //             );
+        //         }
+        //     },
+        //     {
+        //         Header: 'Author',
+        //         accessor: 'author',
+        //         // filterable: true,
+        //         Cell: props => {
+        //             return (
+        //                 <span data-name={props.author}>
+        //                     {props.value}
+        //                 </span>
+        //             );
+        //         }
+        //     },
+        //     {
+        //         Header: 'ISBN',
+        //         accessor: 'isbn',
+        //         // filterable: true,
+        //         Cell: props => {
+        //             return (
+        //                 <span data-name={props.isbn}>
+        //                     {props.value}
+        //                 </span>
+        //             );
+        //         }
+        //     },
+        //     {
+        //         Header: 'Publication Year',
+        //         accessor: 'year',
+        //         // filterable: true,
+        //         Cell: props => {
+        //             return (
+        //                 <span data-name={props.publication_year}>
+        //                     {props.value}
+        //                 </span>
+        //             );
+        //         }
+        //     },
+        //     {
+        //         Header: 'Publisher',
+        //         accessor: 'publisher',
+        //         // filterable: true,
+        //         Cell: props => {
+        //             return (
+        //                 <span data-name={props.publisher}>
+        //                     {props.value}
+        //                 </span>
+        //             );
+        //         }
+        //     },
+        //     {
+        //         Header: 'Copies',
+        //         accessor: 'copies',
+        //         // filterable: true,
+        //         Cell: props => {
+        //             return (
+        //                 <span data-name={props.copies}>
+        //                     {props.value}
+        //                 </span>
+        //             );
+        //         }
+        //     },
+        //     {
+        //         Header: 'Copies Available',
+        //         accessor: 'available',
+        //         // filterable: true,
+        //         Cell: props => {
+        //             return (
+        //                 <span data-name={props.available}>
+        //                     {props.value}
+        //                 </span>
+        //             );
+        //         }
+        //     },
+        //     {
+        //         Header: 'Timeframe',
+        //         accessor: 'timeframeNote',
+        //         Cell: props => {
+        //             const { original } = props.cell.row;
+        //             return (
+        //                 <span data-timeframe={original.timeframeNote}>
+        //                     {props.value || "-"}
+        //                 </span>
+        //             );
+        //         },
+        //     },
+        //     {
+        //         Header: 'Update',
+        //         accessor: '_update',
+        //         Cell: props => {
+        //             return (
+        //                 <Link
+        //                     data-update-id={props._id}
+        //                     to={`/book-update/${props.value}`}
+        //                 >
+        //                     Update Item
+        //                 </Link>
+        //             );
+        //         },
+        //     },
+        //     {
+        //         Header: 'Delete',
+        //         accessor: '_delete',
+        //         Cell: props => {
+        //             return (
+        //                 <span data-delete-id={props._id}>
+        //                     <DeleteButton
+        //                         id={props._id}
+        //                         onDelete={this.handleRemoveItem}
+        //                     />
+        //                 </span>
+        //             );
+        //         },
+        //     },
+        // ];
 
         return (
             <Wrapper>
-                <CssBaseline />
                 {(
                     (items || []).length > 0
                 ) ? (
-                    <Table
-                        data={items}
-                        columns={columns}
+                  <Container2>
+                    <BookDiv>
+                  <Title>
+                  <Table
+                      data={items}
+                      columns={columns}
                     />
+                </Title>
+              </BookDiv>
+            </Container2>
                 ) : (
                     `No items to render... :(`
                 )}

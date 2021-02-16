@@ -59,7 +59,7 @@ class SignIn extends Component {
       //   variant: 'success'
       // })
     )
-      .then(() => history.push('/books'))
+      .then(() => history.push('/books/list'))
       .catch((err) => {
         this.setState({ email: '', password: '' })
         console.log(err);

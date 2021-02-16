@@ -35,7 +35,7 @@ const connectionParams = {
     useUnifiedTopology: true
 };
 //calls mongoose.connect to connect to database and pass the params -PA
-mongoose.connect(url,connectionParams)
+mongoose.connect(url, connectionParams)
 //if successful, print the following message on the CLI server - PA
     .then( () => {
         console.log('Connected to database ');

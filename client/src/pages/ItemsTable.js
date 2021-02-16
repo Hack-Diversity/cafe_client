@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import ReactTable from 'react-table-6';
 import * as actions from '../actions';
 import { DeleteButton } from '../components/buttons';
+import Img from 'react-cool-img'
+import defaultImg from './images/noimage.png'
 
 import styled from 'styled-components';
 
@@ -44,75 +46,104 @@ class ItemsList extends Component {
         console.log(items);
 
         const columns = [
-            {
-                Header: 'ID',
-                accessor: '_id',
-                filterable: true,
+          {
+                Header: 'Book Cover:',
+                accessor: 'image_m',
                 Cell: props => {
+                  console.log(props);
                     return (
-                        <span data-item-id={props.original._id}>
-                            {props.original._id}
-                        </span>
+                      <span data-item-id={props.original.image_url_m}>
+                           <Img
+                             placeholder={defaultImg}
+                             src={props.original.image_url_m}
+                             alt="Book Cover"/>
+                           </span>
                     )
                 }
             },
             {
-                Header: 'Name',
-                accessor: 'name',
+                Header: 'ISBN',
+                accessor: 'isbn',
                 filterable: true,
                 Cell: props => {
                     return (
-                        <span data-name={props.original.name}>
+                        <span data-name={props.original.isbn}>
                             {props.value}
                         </span>
                     );
                 }
             },
             {
-                Header: 'Day(s)',
-                accessor: 'daysOfWeek',
+                Header: 'Title:',
+                accessor: 'title',
                 filterable: true,
                 Cell: props => {
-                    const { daysOfWeek } = props.original;
-                    let daysToDisplay = "";
-                    if (daysOfWeek && typeof daysOfWeek === "object") {
-                        for (const day in daysOfWeek) {
-                            daysToDisplay = daysToDisplay === "" ? daysOfWeek[day] : `${daysToDisplay}, ${daysOfWeek[day]}`;
-                        }
-
-                    }
                     return (
-                        <span
-                            data-daysofweek={daysOfWeek && JSON.stringify(daysOfWeek)}
-                            data-daysofweek-by-id={props.original._id}
-                        >
-                            {daysToDisplay || "-"}
+                        <span data-name={props.original.title}>
+                            {props.value}
                         </span>
                     );
                 }
             },
             {
-                Header: 'Timeframe',
-                accessor: 'timeframeNote',
-                Cell: props => {
-                    return (
-                        <span data-timeframe={props.original.timeframeNote}>
-                            {props.value || "-"}
-                        </span>
-                    );
-                },
-            },
-            {
-                Header: 'Priority',
-                accessor: 'priority',
+                Header: 'Author:',
+                accessor: 'author',
                 filterable: true,
                 Cell: props => {
                     return (
-                        <span data-priority={props.original.priority}>
+                        <span data-name={props.original.author}>
                             {props.value}
                         </span>
                     );
-                },
+                }
+            },
+            {
+                Header: 'Publication Year',
+                accessor: 'publication_year',
+                filterable: true,
+                Cell: props => {
+                    return (
+                        <span data-name={props.original.publication_year}>
+                            {props.value}
+                        </span>
+                    );
+                }
+            },
+            {
+                Header: 'Publisher',
+                accessor: 'publisher',
+                filterable: true,
+                Cell: props => {
+                    return (
+                        <span data-name={props.original.publisher}>
+                            {props.value}
+                        </span>
+                    );
+                }
+            },
+            {
+                Header: 'Copies',
+                accessor: 'copies',
+                // filterable: true,
+                Cell: props => {
+                    return (
+                        <span data-name={props.original.copies}>
+                            {props.value}
+                        </span>
+                    );
+                }
+            },
+            {
+                Header: 'Copies Available',
+                accessor: 'available',
+                // filterable: true,
+                Cell: props => {
+                    return (
+                        <span data-name={props.original.available}>
+                            {props.value}
+                        </span>
+                    );
+                }
             },
             {
                 Header: '',
@@ -121,7 +152,7 @@ class ItemsList extends Component {
                     return (
                         <Link
                             data-update-id={props.original._id}
-                            to={`/book/update/${props.original._id}`}
+                            to={`/book-update/${props.original._id}`}
                         >
                             Update Item
                         </Link>

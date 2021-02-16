@@ -28,23 +28,38 @@ import {
 } from './pages';
 
 import ViewBooks from './pages/viewbooks';
-import ViewBook from './pages/viewBook';
+// import ViewBook from './pages/viewBook';
 import Signin from './pages/signin';
+// import AuthUser from './api/AuthUser'
 
 
 class App extends Component {
+  constructor () {
+    super()
+
+    this.state = {
+      user: null,
+      msgAlerts: []
+    }
+  }
+
+  setUser = user => this.setState({ user })
+
+  clearUser = () => this.setState({ user: null })
     render() {
 
         const publicViews = (
             <Switch>
                 <Route exact path={routes.HOME} component={Welcome} />
+                <Route exact path={routes.LOG_IN} component={Signin}
+                  render={() => ( <Signin setUser={this.setUser} />
+                )} />
+                <Route exact path={routes.ITEM} component={ItemsList} />
                 <Route exact path={routes.LIBRARY} component={ViewBooks} />
-                <Route exact path={routes.LOG_IN} component={Signin} />
-                <Route exact path={routes.ITEMS} component={ItemsList} />
-                <Route exact path={`${routes.ITEMS}/react-table-v6`} component={ItemsTable} />
+                <Route exact path={`${routes.LIBRARY}/list`} component={ItemsTable} />
                 <Route exact path={routes.ITEM_INSERT} component={ItemInsert} />
                 <Route exact path={routes.ITEM_UPDATE} component={ItemUpdate} />
-                <Route exact path={routes.BOOK} component={ViewBook} />
+
             </Switch>
         );
 

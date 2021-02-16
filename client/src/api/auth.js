@@ -1,5 +1,5 @@
-// import config file that contains Heroku URL with BackEnd code
-// import api from './index'
+//import config file that contains Heroku URL with BackEnd code
+//import apiUrl from './index'
 // import axios for axios calls
 import axios from 'axios'
 
@@ -12,7 +12,7 @@ if (window.location.hostname === 'localhost') {
   apiUrl = production
 }
 
-// this file hold the axio calls for signIn, signUp, logout and change passowrd
+//this file hold the axio calls for signIn, signUp, logout and change passowrd
 // only, all other axios calls are stored inside of the files it belongs to
 // Since react provides the ability of maintaining all your code in the same
 // file, I believe it makes more sense to keep it that way but a new file for
