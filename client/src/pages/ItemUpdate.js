@@ -31,21 +31,21 @@ const InputText = styled.input.attrs({
     text-align: center;
 `;
 
-const Fieldset = styled.fieldset.attrs({
-    className: 'form-control',
-})`
-    border-color: transparent;
-    margin: 1em auto 0.5em;
-    max-width: 50%;
-    min-height: 6em;
-`;
-
-const DayInput = styled.input.attrs({
-    className: '',
-})`
-    margin: 5px auto;
-    text-align: center;
-`;
+// const Fieldset = styled.fieldset.attrs({
+//     className: 'form-control',
+// })`
+//     border-color: transparent;
+//     margin: 1em auto 0.5em;
+//     max-width: 50%;
+//     min-height: 6em;
+// `;
+//
+// const DayInput = styled.input.attrs({
+//     className: '',
+// })`
+//     margin: 5px auto;
+//     text-align: center;
+// `;
 
 const Button = styled.button.attrs({
     className: 'btn btn-primary',
@@ -200,70 +200,70 @@ class ItemUpdate extends Component {
                 <Label>ISBN: </Label>
                 <InputText
                     type="number"
-                    value={isbn}
+                    defaultValue={isbn}
                     onChange={this.handleChangeInputName}
                 />
 
               <Label>Book Title: </Label>
                 <InputText
                     type="text"
-                    value={title}
+                    defaultValue={title}
                     onChange={this.handleChangeInputTitle}
                 />
 
                 <Label>Author: </Label>
                 <InputText
                     type="text"
-                    value={author}
+                    defaultValue={author}
                     onChange={this.handleChangeInputAuthor}
                 />
 
               <Label>Year Published: </Label>
                 <InputText
                     type="number"
-                    value={publication_year}
+                    defaultValue={publication_year}
                     onChange={this.handleChangeInputPublication_year}
                 />
 
                 <Label>Publisher: </Label>
                 <InputText
                     type="text"
-                    value={publisher}
+                    defaultValue={publisher}
                     onChange={this.handleChangeInputPublisher}
                 />
 
               <Label>Update Small Image Url: </Label>
                 <InputText
                     type="text"
-                    value={image_url_s}
+                    defaultValue={image_url_s}
                     onChange={this.handleChangeInputImage_url_s}
                 />
 
               <Label>Update Medium Image Url: </Label>
                 <InputText
                     type="text"
-                    value={image_url_m}
+                    defaultValue={image_url_m}
                     onChange={this.handleChangeInputImage_url_m}
                 />
 
               <Label>Update Large Image Url: </Label>
                 <InputText
                     type="text"
-                    value={image_url_l}
+                    defaultValue={image_url_l}
                     onChange={this.handleChangeInputImage_url_l}
                 />
 
               <Label>Book Copies: </Label>
                 <InputText
                     type="number"
-                    value={copies}
+                    defaultValue={copies}
                     onChange={this.handleChangeInputCopies}
                 />
 
               <Label>Available Copies: </Label>
                 <InputText
                     type="number"
-                    value={available}
+                    defaultValue={available}
                     onChange={this.handleChangeInputAvailable}
                 />
 

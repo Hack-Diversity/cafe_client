@@ -33,7 +33,7 @@ const mongoose = require('mongoose');
 //calls cors package
 const cors = require('cors');
 //calls the database.js file
-const dbConfig = require('./db/db');
+const url = require('./db/db');
 //calls body-parser package
 const bodyParser = require('body-parser');
 //PA
@@ -46,7 +46,7 @@ const userRoute = require('./routes/user-router');
 const errorMessages = require('./lib/errors');
 const auth = require('./lib/auth');
 //connect to mongoose by using database.js
-mongoose.connect(dbConfig)
+mongoose.connect(url)
 
 // mongoose.connect("mongodb://localhost:27017/books", {useCreateIndex})
 // sets express to a variable called app
