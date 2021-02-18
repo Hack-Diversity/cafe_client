@@ -45,7 +45,7 @@ const logoStyles = {
   height: '180px',
   width: '190px',
   marginLeft: '-250px',
-  marginRight: '350px'
+  marginRight: '200px'
 };
 
 class Links extends Component {
@@ -58,12 +58,22 @@ class Links extends Component {
       </HomeWrapper>
       <Collapse>
         <List>
+        <Item>
+          <Link to="/" className="navbar-brand" style={{
+              homeStyles,
+              marginRight: '80px'
+            }}>
+            Home</Link>
+        </Item>
+        <Item>
+
           <Link to="/" className="navbar-brand" style={{
               homeStyles,
               marginRight: '80px'
             }}>
             About Us
           </Link>
+        </Item>
           <Item>
             <Link to="/books" className="navbar-brand" style={{
                 homeStyles,

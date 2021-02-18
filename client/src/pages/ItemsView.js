@@ -34,16 +34,26 @@ class ItemsList extends Component {
         this.props.fetchAllItems()
     }
 
-    handleRemoveItem = data => {
-        const itemId = data;
-
-        this.props.deleteSingleItem(itemId)
-            .then(resp => {
-                console.log("handleRemoveItem: resp");
-                console.log(resp);
-                this.props.fetchAllItems();
-            });
+    // handleRemoveItem = data => {
+    //     const itemId = data;
+    //
+    //     this.props.deleteSingleItem(itemId)
+    //         .then(resp => {
+    //             console.log("handleRemoveItem: resp");
+    //             console.log(resp);
+    //             this.props.fetchAllItems();
+    //         });
+    // }
+    handleChangeInputAvailableMinus = async event => {
+        const copies = event.target.value;
+        this.setState({ copies });
     }
+
+    handleChangeInputAvailablePlus = async event => {
+        const available = event.target.value;
+        this.setState({ available });
+    }
+
 
     render() {
         const {
@@ -69,18 +79,7 @@ class ItemsList extends Component {
                     )
                 }
             },
-            {
-                Header: 'ISBN',
-                accessor: 'isbn',
-                filterable: true,
-                Cell: props => {
-                    return (
-                        <span data-name={props.original.isbn}>
-                            {props.value}
-                        </span>
-                    );
-                }
-            },
+
             {
                 Header: 'Title:',
                 accessor: 'title',
@@ -105,42 +104,8 @@ class ItemsList extends Component {
                     );
                 }
             },
-            {
-                Header: 'Publication Year',
-                accessor: 'publication_year',
-                filterable: true,
-                Cell: props => {
-                    return (
-                        <span data-name={props.original.publication_year}>
-                            {props.value}
-                        </span>
-                    );
-                }
-            },
-            {
-                Header: 'Publisher',
-                accessor: 'publisher',
-                filterable: true,
-                Cell: props => {
-                    return (
-                        <span data-name={props.original.publisher}>
-                            {props.value}
-                        </span>
-                    );
-                }
-            },
-            {
-                Header: 'Copies',
-                accessor: 'copies',
-                // filterable: true,
-                Cell: props => {
-                    return (
-                        <span data-name={props.original.copies}>
-                            {props.value}
-                        </span>
-                    );
-                }
-            },
+
+
             {
                 Header: 'Copies Available',
                 accessor: 'available',
@@ -158,12 +123,12 @@ class ItemsList extends Component {
                 accessor: '',
                 Cell: props => {
                     return (
-                        <Link
-                            data-update-id={props.original._id}
-                            to={`/book-update/${props.original._id}`}
-                        >
-                            Update Book
-                        </Link>
+                        <span data-update-id={props.original._id}>
+                            <button
+                                id={props.original._id}
+                                onClick={this.handleChangeInputAvailableMinus}
+                            >Rent This Book</button>
+                        </span>
                     );
                 },
             },
@@ -172,31 +137,23 @@ class ItemsList extends Component {
                 accessor: '',
                 Cell: props => {
                     return (
-                        <span data-delete-id={props.original._id}>
-                            <DeleteButton
+                        <span data-update-id={props.original._id}>
+                            <button
                                 id={props.original._id}
-                                onDelete={this.handleRemoveItem}
-                            />
+                                onClick={this.handleChangeInputAvailablePlus}
+                            >Return This Book </button>
                         </span>
                     );
                 },
             },
+
         ];
 
         return (
             <Wrapper>
               <Container>
 
-                <h4>Welcome, {this.props.user.email}</h4>
-                <HomeLinks>
-                <Link to={'/book-create'}>Create a Book</Link>
-                </HomeLinks>
-                <HomeLinks>
-                <Link to={'/admin-password'}>Change Password</Link>
-                </HomeLinks>
-                <HomeLinks>
-                <Link to={'/admin-signout'}>Logout</Link>
-              </HomeLinks>
+
               </Container>
                 {(
                     (items || []).length > 0 // defeats the purpose of using `isLoading` prop?
