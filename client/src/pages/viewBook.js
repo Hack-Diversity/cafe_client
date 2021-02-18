@@ -59,7 +59,7 @@ const RightColumn = styled.div.attrs({
     padding-right:200px;
 `;
 
-export default class ViewBook extends Component {
+class ViewBook extends Component {
     constructor(props) {
         super(props);
 
@@ -67,16 +67,17 @@ export default class ViewBook extends Component {
             title: '',
             isbn: '',
             author: '',
-            publication_year: -1,
+            publication_year: '',
             publisher: '',
             image_url_l: '',
-            copies: -1,
-            available: -1
+            copies: '',
+            available: ''
         };
     }
 
+
     componentDidMount(){
-        axios.get('http://localhost:8000/books/' + this.props.match.params._id)
+        axios.get('http://localhost:8000/book/' + this.props.match.params._id)
             .then(response => {
                 this.setState({
                     title: response.data.title,
@@ -99,14 +100,14 @@ export default class ViewBook extends Component {
         return (
             <Container>
             <BookDiv>
-                <img src = {this.state.image_url_l} alt="Book Cover"></img>
+                <img src={this.props.image_url_l} alt="Book Cover"></img>
             </BookDiv>
             <InfoDiv>
-                <h1>{this.state.title}</h1>
+                <h1>{this.props.title}</h1>
             <Info>
                 <LeftColumn>
                     <hr></hr>
-                    <div class = "label">ISBN:</div>
+                    <div className="label">ISBN:</div>
                     <hr></hr>
                     Author:
                     <hr></hr>
@@ -117,13 +118,13 @@ export default class ViewBook extends Component {
                 </LeftColumn>
                 <RightColumn>
                     <hr></hr>
-                    {this.state.isbn}
+                    {this.props.isbn}
                     <hr></hr>
-                    {this.state.author}
+                    {this.props.author}
                     <hr></hr>
-                    {this.state.publication_year}
+                    {this.props.publication_year}
                     <hr></hr>
-                    {this.state.available} / {this.state.copies}
+                    {this.props.available} / {this.props.copies}
                     <hr></hr>
                     <br></br>
                 </RightColumn>
@@ -136,3 +137,5 @@ export default class ViewBook extends Component {
         )
     }
 }
+
+export default ViewBook;

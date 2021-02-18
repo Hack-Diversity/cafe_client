@@ -41,6 +41,7 @@ const bodyParser = require('body-parser');
 // import routes
 const booksRoute = require('./routes/item-router');
 const userRoute = require('./routes/user-router');
+const newToken = require('./lib/newToken')
 // const adminRoute = require('./server/routes/admin_route');
 //import middleware files to handle errors
 const errorMessages = require('./lib/errors');
@@ -75,6 +76,8 @@ app.use(auth)
 app.get('/', (req, res) => {
   res.json({"message": "Success"})
 })
+
+app.use(newToken)
 //API route - calls and uses file routes/book_route
 app.use('/api', booksRoute);
 app.use(userRoute);
