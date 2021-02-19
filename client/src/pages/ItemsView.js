@@ -20,9 +20,16 @@ const Container = styled.div`
     padding: 50px;
 `;
 
-const HomeLinks = styled.div`
-
-`;
+const Title = styled.div.attrs({
+    className: 'title',
+})`
+    display: flex;
+    align-items: center; /* vertical */
+    justify-content: center; /* horizontal */
+    font-size: 40px;
+    font-family: Roboto;
+    text-decoration:none;
+`
 
 class ItemsList extends Component {
 
@@ -44,15 +51,6 @@ class ItemsList extends Component {
     //             this.props.fetchAllItems();
     //         });
     // }
-    handleChangeInputAvailableMinus = async event => {
-        const copies = event.target.value;
-        this.setState({ copies });
-    }
-
-    handleChangeInputAvailablePlus = async event => {
-        const available = event.target.value;
-        this.setState({ available });
-    }
 
 
     render() {
@@ -123,36 +121,23 @@ class ItemsList extends Component {
                 accessor: '',
                 Cell: props => {
                     return (
-                        <span data-update-id={props.original._id}>
-                            <button
-                                id={props.original._id}
-                                onClick={this.handleChangeInputAvailableMinus}
-                            >Rent This Book</button>
-                        </span>
+                        <Link
+                            data-update-id={props.original._id}
+                            to={`/book-rent/${props.original._id}`}
+                        >
+                            View Book
+                        </Link>
                     );
                 },
             },
-            {
-                Header: '',
-                accessor: '',
-                Cell: props => {
-                    return (
-                        <span data-update-id={props.original._id}>
-                            <button
-                                id={props.original._id}
-                                onClick={this.handleChangeInputAvailablePlus}
-                            >Return This Book </button>
-                        </span>
-                    );
-                },
-            },
-
         ];
 
         return (
             <Wrapper>
               <Container>
-
+                <Title>
+                  Available Books
+                </Title>
 
               </Container>
                 {(

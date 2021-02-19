@@ -1,38 +1,154 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import ReactTable from 'react-table-6';
-import { fetchSingleItem } from '../actions';
-// import { DeleteButton } from '../components/buttons';
-import Img from 'react-cool-img'
-import defaultImg from './images/noimage.png'
+import { fetchSingleItem, updateSingleItemRent } from '../actions';
+import { shared } from '../constants';
+import { Redirect } from 'react-router-dom'
 
 import styled from 'styled-components';
 
-import 'react-table-6/react-table.css';
-
-const Wrapper = styled.div`
-    padding: 0 40px 40px 40px;
+const Container = styled.div.attrs({
+    className: 'Container',
+})`
+    margin-left:auto;
+    margin-right:auto;
+    width:1600px;
+    height:100%;
+    padding-top:40px;
 `;
 
-const Container = styled.div`
-    padding: 50px;
+const BookDiv = styled.div.attrs({
+    className: 'BookDiv',
+})`
+    margin-left:auto;
+    margin-right:auto;
+    float:left;
+    width:400px;
+    height:100%;
 `;
 
-const HomeLinks = styled.div`
+const InfoDiv = styled.div.attrs({
+    className: 'InfoDiv',
+})`
+    margin-left:auto;
+    margin-right:auto;
+    width:1000px;
+    height:100%;
+    float:left;
+`;
 
+const Info = styled.div.attrs({
+    className: 'Info',
+})`
+    padding-top:20px;
+    font-size:20px;
+`;
+
+const LeftColumn = styled.div`
+    height:100%;
+    width:500px;
+    float:left;
+    margin-left:auto;
+    padding-left:200px;
+    text-align: left;
+`;
+
+const RightColumn = styled.div`
+    height:100%;
+    width:500px;
+    float:left;
+    padding-right:200px;
+    text-align: left;
+`;
+
+const Title = styled.h1`
+    margin: 30px 0 40px;
+`;
+
+const Title2 = styled.h1.attrs({
+    className: 'h5',
+
+})`
+    margin-top: 20px
+
+
+`;
+
+const Wrapper = styled.div.attrs({
+    className: 'form-group',
+})`
+    margin-top: 0 30px;
+`;
+
+const Label = styled.label`
+    margin: 5px;
+    max-width: 30%;
+`;
+
+const InputText = styled.input.attrs({
+    className: 'form-control',
+})`
+    margin: 5px auto;
+    max-width: 30%;
+    text-align: center;
+`;
+
+// const Fieldset = styled.fieldset.attrs({
+//     className: 'form-control',
+// })`
+//     border-color: transparent;
+//     margin: 1em auto 0.5em;
+//     max-width: 50%;
+//     min-height: 6em;
+// `;
+//
+// const DayInput = styled.input.attrs({
+//     className: '',
+// })`
+//     margin: 5px auto;
+//     text-align: center;
+// `;
+
+const Button = styled.button.attrs({
+    className: 'btn btn-primary',
+})`
+  margin: 15px 15px 15px 5px;
+`;
+
+const CancelButton = styled.a.attrs({
+    className: 'btn btn-danger',
+})`
+  margin: 15px 15px 15px 5px;
 `;
 
 class ItemViewOne extends Component {
+    constructor(props) {
+        /**
+         * Currently deprecated and now known as the "legacy context":
+         * - https://reactjs.org/docs/legacy-context.html
+         *
+         * TODO: refactor to use new Context API:
+         * - https://reactjs.org/docs/context.html
+         */
+        super(props);
+        this.state = {
+            _id: '',
+            isbn: '',
+            title: '',
+            author: '',
+            publication_year: '',
+            publisher: '',
+            image_url_s: '',
+            image_url_m: '',
+            image_url_l: '',
+            copies: '',
+            available: '',
+            counter: 0,
+            isEnable: false,
+        };
+    }
 
-    // componentDidMount() {
-    //     console.log("ItemsList: props");
-    //     console.log(this.props);
-    //     // if (((this.props.itemData || {}).items || []).length) return;
-    //
-    //     this.props.fetchSingleItem(this.props.itemId)
-    // }
     componentDidMount() {
         this.props.fetchSingleItem(this.props.itemId)
             .then(resp => {
@@ -41,96 +157,182 @@ class ItemViewOne extends Component {
             });
     }
 
+    handleChangeInputIsbn = async event => {
+        const isbn = event.target.value;
+        this.setState({ isbn });
+    }
+
+    handleChangeInputTitle = async event => {
+      const title = event.target.value;
+      this.setState({ title });
+    }
+
+    handleChangeInputAuthor = async event => {
+        const author = event.target.value;
+        this.setState({ author });
+    }
+
+    handleChangeInputPublication_year = async event => {
+       const publication_year = event.target.value;
+       this.setState({ publication_year });
+    }
+
+    handleChangeInputPublisher = async event => {
+        const publisher = event.target.value;
+        this.setState({ publisher });
+    }
+
+    handleChangeInputImage_url_m = async event => {
+       const image_url_m = event.target.value;
+       this.setState({ image_url_m });
+   }
+
+   handleChangeInputImage_url_l = async event => {
+       const image_url_l = event.target.value;
+       this.setState({ image_url_l });
+   }
+
+   handleChangeInputCopies = async event => {
+       const copies = event.target.value;
+       this.setState({ copies });
+   }
+
+   handleCount = async event => {
+     let counter = event.target.value
+     if(counter > 0){
+       this.setState({ available: this.state.available-counter })
+     }
+   }
+
+   handleChangeInputAvailable = async event => {
+     const available = event.target.value;
+     const counter = event.target.value;
+     const copies = event.target.value;
+     const total = copies - available;
+     this.setState({ total })
+     if(available > 0){
+     //   this.setState({ available: this.state.available+1 })
+     //   return this.handleUpdateItem(event)
+     // }
+     // else {
+
+       this.setState({ available: this.state.available+1 });
+       // return this.handleUpdateItem(event)
+     }
+     else if(counter === total) {
+       this.setState({ isEnable : true})
+     }
+     else {
+       this.setState({ isEnable : true})
+     }
+
+   }
+
+    handleUpdateItem = event => {
+      const {
+          _id,
+          isbn,
+          title,
+          author,
+          publication_year,
+          publisher,
+          image_url_s,
+          image_url_m,
+          image_url_l,
+          copies,
+          available,
+          counter
+        } = this.state;
+        const item = { _id, isbn, title,author,publication_year,publisher,
+            image_url_s,image_url_m,image_url_l,copies,available, counter};
+
+        return this.props.updateSingleItemRent(item)
+            .then(resp => {
+                console.log("handleUpdateItem: resp");
+                console.log(resp);
+
+            })
+            .catch(err => {
+
+                console.error("handleUpdateItem: err");
+                console.error(err);
+            });
+    }
+
+    confirmUpdateItem = event => {
+        return this.handleUpdateItem(event);
+
+    }
 
     render() {
         const {
-            item,
-            loaded,
-            loading
-        } = this.state|| {};
-        console.log(item);
+          _id,
+          isbn,
+          title,
+          author,
+          publication_year,
+          publisher,
+          // image_url_s,
+          // image_url_m,
+          image_url_l,
+          copies,
+          available,
+          counter
+        } = this.state;
 
-        const columns = [
-          {
-                Header: 'Book Cover:',
-                accessor: 'image_l',
-                Cell: props => {
-                  console.log(props);
-                    return (
-                      <span data-item-id={props.original.image_url_l}>
-                           <Img
-                             placeholder={defaultImg}
-                             src={props.original.image_url_l}
-                             alt="Book Cover"/>
-                           </span>
-                    )
-                }
-            },
-
-            {
-                Header: 'Title:',
-                accessor: 'title',
-                filterable: true,
-                Cell: props => {
-                    return (
-                        <span data-name={props.original.title}>
-                            {props.value}
-                        </span>
-                    );
-                }
-            },
-            {
-                Header: 'Author:',
-                accessor: 'author',
-                filterable: true,
-                Cell: props => {
-                    return (
-                        <span data-name={props.original.author}>
-                            {props.value}
-                        </span>
-                    );
-                }
-            },
-
-
-            {
-                Header: 'Copies Available',
-                accessor: 'available',
-                // filterable: true,
-                Cell: props => {
-                    return (
-                        <span data-name={props.original.available}>
-                            {props.value}
-                        </span>
-                    );
-                }
-            },
-            
-
-        ];
-
-        return (
+        return _id && (
             <Wrapper>
               <Container>
+              <BookDiv>
+              <img
+                src={ image_url_l }
+                style={{
+                  float: 'left',
+                  marginLeft: '100px'
+                }}
+                alt="Book Cover"/>
+              </BookDiv>
+              <Title>
+              { title }
+            </Title>
+              <InfoDiv>
+                <Info>
 
 
-              </Container>
-                {(
-                    (item || []).length > 0 // defeats the purpose of using `isLoading` prop?
-                ) ? (
-                        <ReactTable
-                            data={item}
-                            columns={columns}
-                            isLoading={(loaded && loading)}
+                    <LeftColumn>
+                      <Label>ISBN: </Label>
+                      <Title2>AUTHOR:</Title2>
+                      <Title2>PUBLICATION YEAR:</Title2>
+                      <Title2>PUBLISHER:</Title2>
+                      <Title2>TOTAL COPIES:</Title2>
+                      <Title2>AVAILABLE COPIES:</Title2>
 
+                    </LeftColumn>
+                    <RightColumn>
+                      <Title2>{ isbn }</Title2>
+                      <Title2>{ author }</Title2>
+                      <Title2>{ publication_year }</Title2>
+                      <Title2>{ publisher }</Title2>
+                      <Title2>{ copies }</Title2>
+                      <Title2>{ available }</Title2>
+                    </RightColumn>
+                    <BookDiv>
+                      <Label>Returning Copies: </Label>
+                        <InputText
+                            type="number"
+                            defaultValue={counter}
+                            onChange={this.handleChangeInputAvailable}
+                            disabled={this.state.isEnable}
                         />
-                    ) : (
-                        `No items to render... :(`
-                    )}
-            </Wrapper>
+                      <Button onClick={this.confirmUpdateItem}>Return</Button>
+                      <CancelButton href={'/books/'}>Cancel</CancelButton>
+</BookDiv>
+</Info>
+</InfoDiv>
+              </Container>
+          </Wrapper>
         );
     }
-
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -140,6 +342,6 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({fetchSingleItem}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ fetchSingleItem, updateSingleItemRent }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemViewOne);

@@ -19,7 +19,7 @@ const Nav = styled.nav.attrs({
     background-color:#FFF;
     height: 210px;
     margin-bottom: -20px;
-
+    
     @media screen and (min-width: 992px) {
         padding: 0.5em 25%;
     }

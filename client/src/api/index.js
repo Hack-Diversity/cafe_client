@@ -15,6 +15,7 @@ export const getAllItems = payload => api.get(`/books`, payload);
 export const getItemById = id => api.get(`/book/${id}`);
 export const insertItem = payload => api.post(`/book-create`, payload);
 export const updateItemById = (id, payload) => api.patch(`/book-update/${id}`, payload);
+export const updateItemByIdRent = (id, payload) => api.patch(`/book-rent/${id}`, payload);
 export const deleteItemById = id => api.delete(`/book/${id}`);
 // export const signIn = payload => api.post(`/admin-signin`, payload);
 // export const passwordChange = (id, payload) => api.patch(`/admin-password/${id}`, payload);
@@ -25,7 +26,8 @@ const apis = {
     getItemById,
     insertItem,
     updateItemById,
-    deleteItemById
+    deleteItemById,
+    updateItemByIdRent
     // signIn,
     // signOut,
     // passwordChange

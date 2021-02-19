@@ -9,8 +9,18 @@ import { Redirect } from 'react-router-dom'
 import styled from 'styled-components';
 
 const Title = styled.h1.attrs({
-    className: 'h1',
-})``;
+    className: 'h2',
+
+})`
+    margin-top: 30px
+`;
+
+const Title2 = styled.h1.attrs({
+    className: 'h5',
+
+})`
+    margin-top: 20px
+`;
 
 const Wrapper = styled.div.attrs({
     className: 'form-group',
@@ -195,8 +205,9 @@ class ItemUpdate extends Component {
 
         return _id && (
             <Wrapper>
-                <Title>Update This Book</Title>
 
+                <Title>Update:</Title>
+                <Title2>{ title }</Title2>
                 <Label>ISBN: </Label>
                 <InputText
                     type="number"
