@@ -20,9 +20,16 @@ const Container = styled.div`
     padding: 50px;
 `;
 
-const HomeLinks = styled.div`
-
-`;
+const Title = styled.div.attrs({
+    className: 'title',
+})`
+    display: flex;
+    align-items: center; /* vertical */
+    justify-content: center; /* horizontal */
+    font-size: 40px;
+    font-family: Roboto;
+    text-decoration:none;
+`
 
 class ItemsList extends Component {
 
@@ -152,7 +159,9 @@ class ItemsList extends Component {
         return (
             <Wrapper>
               <Container>
-
+                <Title>
+                  Available Books
+                </Title>
 
               </Container>
                 {(

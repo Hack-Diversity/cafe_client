@@ -43,6 +43,7 @@
         "typescript-eslint": "0.0.1-alpha.0"
     },
     "dependencies": {
+        "babel-loader": "^8.1.0",
         "eslint-config-react-app": "^6.0.0",
         "eslint-plugin-flowtype": "^5.2.0",
         "eslint-plugin-jsx-a11y": "^6.4.1",
@@ -53,6 +54,7 @@
         "nodemon": "^2.0.7",
         "object-path": "^0.11.5",
         "react-scripts": "^4.0.2",
+        "react-scroll-to": "^3.0.0-beta.6",
         "yarn": "^1.22.10"
     }
 }
