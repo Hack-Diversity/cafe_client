@@ -12,6 +12,7 @@ const LIBRARY = '/books';
 const ITEM = '/book/:id';
 const ITEM_INSERT = '/book-create';
 const ITEM_UPDATE = '/book-update/:id';
+const ITEM_RENT = '/book-rent/:id';
 const BOOK = '/books/:_id'
 
 export const routes = {
@@ -24,5 +25,6 @@ export const routes = {
     ITEM_INSERT,
     ITEM_UPDATE,
     LIBRARY,
+    ITEM_RENT,
     BOOK
 };

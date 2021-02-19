@@ -203,6 +203,77 @@ updateItem = (req, res) => {
     });
 };
 
+updateItemRent = (req, res) => {
+    const body = req.body;
+    // console.log('----------------------- updateItem: req -----------------------');
+    // console.log(req);
+    // console.log('----------------------- updateItem: body -----------------------');
+    // console.log(body);
+    if (!body) {
+        console.error(`[Hack.Diversity React Template] - 400 in 'updateItem': You must provide an item to update.`);
+        return res
+            .status(400)
+            .json({
+                success: false,
+                message: 'You must provide an item to update.',
+            });
+    }
+
+    const itemForUpdate = {
+        _id: req.params.id,
+        isbn: body.isbn,
+        title: body.title,
+        author: body.author,
+        publication_year: body.publication_year,
+        publisher: body.publisher,
+        image_url_s: body.image_url_s,
+        image_url_m: body.image_url_m,
+        image_url_l: body.image_url_m,
+        copies: body.copies,
+        available: body.available,
+    };
+
+    // console.log('----------------------- updateItem: res -----------------------');
+    // console.log(res);
+
+    return Item.updateOne({ _id: req.params.id }, itemForUpdate, (err, writeOpRes) => {
+        if (err) {
+            console.error(`[Hack.Diversity React Template] - 404 in 'updateItem': Item not found!`);
+            console.error(err);
+            return res
+                .status(404)
+                .json({
+                    success: false,
+                    error: err,
+                    message: 'Item not found!',
+                });
+        }
+        // TODO: make this neater
+        // console.log('----------------------- updateItem: item -----------------------');
+        // console.log(item);
+        return writeOpRes;
+    })
+    .then(() => {
+        // console.log('----------------------- updateItem - findOne: res -----------------------');
+        // console.log(res);
+        console.log(`[Hack.Diversity React Template] - 200 in 'updateItem': Item updated!`);
+        return res
+            .status(200)
+            .json({
+                success: true,
+                id: req.params.id,
+                message: 'Item updated!',
+                //writeOpResult: res
+            });
+    })
+    .catch(err => {
+        console.error(`[Hack.Diversity React Template] - caught error in 'updateItem': ${err}`);
+        console.error(err);
+        return err;
+    });
+};
+
+
 deleteItem = async (req, res) => {
     await Item.findOneAndDelete({ _id: req.params.id }, (err, item) => {
         if (err) {
@@ -244,4 +315,5 @@ module.exports = {
     createItem,
     updateItem,
     deleteItem,
+    updateItemRent
 };

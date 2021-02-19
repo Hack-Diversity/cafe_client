@@ -51,15 +51,6 @@ class ItemsList extends Component {
     //             this.props.fetchAllItems();
     //         });
     // }
-    handleChangeInputAvailableMinus = async event => {
-        const copies = event.target.value;
-        this.setState({ copies });
-    }
-
-    handleChangeInputAvailablePlus = async event => {
-        const available = event.target.value;
-        this.setState({ available });
-    }
 
 
     render() {
@@ -130,30 +121,15 @@ class ItemsList extends Component {
                 accessor: '',
                 Cell: props => {
                     return (
-                        <span data-update-id={props.original._id}>
-                            <button
-                                id={props.original._id}
-                                onClick={this.handleChangeInputAvailableMinus}
-                            >Rent This Book</button>
-                        </span>
+                        <Link
+                            data-update-id={props.original._id}
+                            to={`/book-rent/${props.original._id}`}
+                        >
+                            View Book
+                        </Link>
                     );
                 },
             },
-            {
-                Header: '',
-                accessor: '',
-                Cell: props => {
-                    return (
-                        <span data-update-id={props.original._id}>
-                            <button
-                                id={props.original._id}
-                                onClick={this.handleChangeInputAvailablePlus}
-                            >Return This Book </button>
-                        </span>
-                    );
-                },
-            },
-
         ];
 
         return (

@@ -79,6 +79,35 @@ export const insertSingleItem = item => {
     };
 };
 
+
+export const updateSingleItemRent = item => {
+    return (dispatch) => {
+        dispatch({ type: types.LOADING_SINGLE_ITEM });
+
+        return api.updateItemByIdRent(item._id, item)
+            .then(resp => {
+                console.log("updateItem: resp");
+                console.log(resp);
+                if ((resp.data || {}).success) {
+                    const newItem = JSON.parse(resp.config.data);
+                    dispatch({
+                        type: types.UPDATE_SINGLE_ITEM,
+                        item: {
+                            _id: resp.data.id,
+                            ...newItem
+                        }
+                    });
+                }
+                return resp;
+            })
+            .catch(err => {
+                console.error(`ERROR in 'updateSingleItem': ${err}`);
+                console.error(err);
+                return err;
+            });
+    };
+};
+
 export const updateSingleItem = item => {
     return (dispatch) => {
         dispatch({ type: types.LOADING_SINGLE_ITEM });

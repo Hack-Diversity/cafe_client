@@ -27,7 +27,7 @@ import {
 } from './pages';
 
 import ViewBooks from './pages/ItemsView';
-// import ViewBook from './pages/ItemViewOne';
+import ViewOne from './pages/ItemViewOne';
 import Signin from './pages/signin';
 import SignOut from './pages/signout';
 import Change from './pages/change-pw';
@@ -56,7 +56,7 @@ class App extends Component {
                     <Signin setUser={this.setUser} />
                 )} />
                 <Route exact path={routes.LIBRARY} component={ViewBooks} />
-                {/*<Route exact path={routes.ITEM} component={ViewBook} />*/}
+                <Route exact path={routes.ITEM_RENT} component={ViewOne} />
 
                 <AuthUser exact user={user} path={`${routes.LIBRARY}/list`} render={({ match }) => (
                     <ItemsTable match={match} user={user} />
