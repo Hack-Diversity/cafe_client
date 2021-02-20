@@ -220,16 +220,16 @@ updateItemRent = (req, res) => {
     }
 
     const itemForUpdate = {
-        _id: req.params.id,
-        isbn: body.isbn,
-        title: body.title,
-        author: body.author,
-        publication_year: body.publication_year,
-        publisher: body.publisher,
-        image_url_s: body.image_url_s,
-        image_url_m: body.image_url_m,
-        image_url_l: body.image_url_m,
-        copies: body.copies,
+        // _id: req.params.id,
+        // isbn: body.isbn,
+        // title: body.title,
+        // author: body.author,
+        // publication_year: body.publication_year,
+        // publisher: body.publisher,
+        // image_url_s: body.image_url_s,
+        // image_url_m: body.image_url_m,
+        // image_url_l: body.image_url_m,
+        // copies: body.copies,
         available: body.available,
     };
 

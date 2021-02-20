@@ -1,21 +1,3 @@
-// const mongoose = require('mongoose');
-// require('dotenv').config();
-//
-// const url = process.env.MONGO_URI;
-//
-// mongoose
-//   .connect(url, {
-//     useNewUrlParser: true,
-//     useCreateIndex: true,
-//     useUnifiedTopology: true
-//   })
-//   .catch(e => {
-//     console.error('Connection error', e.message);
-//   });
-//
-// const db = mongoose.connection;
-//
-//module.exports = db;
 /*this code should be executed in strict mode, in strick mode you
 cannot use undeclared variables - PA */
 'use strict'
