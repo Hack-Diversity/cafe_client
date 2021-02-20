@@ -41,23 +41,12 @@ class ItemsList extends Component {
         this.props.fetchAllItems()
     }
 
-    // handleRemoveItem = data => {
-    //     const itemId = data;
-    //
-    //     this.props.deleteSingleItem(itemId)
-    //         .then(resp => {
-    //             console.log("handleRemoveItem: resp");
-    //             console.log(resp);
-    //             this.props.fetchAllItems();
-    //         });
-    // }
-
-
     render() {
         const {
             items,
             loaded,
-            loading
+            loading,
+            title
         } = this.props.itemData || {};
         console.log(items);
 
@@ -138,7 +127,9 @@ class ItemsList extends Component {
                 <Title>
                   Available Books
                 </Title>
-
+                <Title>
+                { title }
+                </Title>
               </Container>
                 {(
                     (items || []).length > 0 // defeats the purpose of using `isLoading` prop?

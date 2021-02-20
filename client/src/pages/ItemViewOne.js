@@ -144,7 +144,6 @@ class ItemViewOne extends Component {
             image_url_l: '',
             copies: '',
             available: '',
-            counter: 0,
             isEnable: false,
         };
     }
@@ -197,35 +196,22 @@ class ItemViewOne extends Component {
        this.setState({ copies });
    }
 
-   handleCount = async event => {
-     let counter = event.target.value
-     if(counter > 0){
-       this.setState({ available: this.state.available-counter })
-     }
+
+
+   handleChangeRent = async event => {
+
+     this.setState({ available: this.state.available-1 });
+     const available = this.state;
+     return this.props.updateSingleItemRent(available)
    }
 
-   handleChangeInputAvailable = async event => {
-     const available = event.target.value;
-     const counter = event.target.value;
-     const copies = event.target.value;
-     const total = copies - available;
-     this.setState({ total })
-     if(available > 0){
-     //   this.setState({ available: this.state.available+1 })
-     //   return this.handleUpdateItem(event)
-     // }
-     // else {
-
-       this.setState({ available: this.state.available+1 });
-       // return this.handleUpdateItem(event)
-     }
-     else if(counter === total) {
-       this.setState({ isEnable : true})
-     }
-     else {
-       this.setState({ isEnable : true})
-     }
-
+   handleChangeReturn = async event => {
+     const available = this.state.available;
+     // if(available > 0){
+     this.setState({ available: this.state.available+1 });
+     // this.setState({ isEnable: true })
+     return this.props.updateSingleItemRent(available)
+   // }
    }
 
     handleUpdateItem = event => {
@@ -241,10 +227,9 @@ class ItemViewOne extends Component {
           image_url_l,
           copies,
           available,
-          counter
         } = this.state;
         const item = { _id, isbn, title,author,publication_year,publisher,
-            image_url_s,image_url_m,image_url_l,copies,available, counter};
+            image_url_s,image_url_m,image_url_l,copies,available};
 
         return this.props.updateSingleItemRent(item)
             .then(resp => {
@@ -276,8 +261,7 @@ class ItemViewOne extends Component {
           // image_url_m,
           image_url_l,
           copies,
-          available,
-          counter
+          available
         } = this.state;
 
         return _id && (
@@ -317,14 +301,8 @@ class ItemViewOne extends Component {
                       <Title2>{ available }</Title2>
                     </RightColumn>
                     <BookDiv>
-                      <Label>Returning Copies: </Label>
-                        <InputText
-                            type="number"
-                            defaultValue={counter}
-                            onChange={this.handleChangeInputAvailable}
-                            disabled={this.state.isEnable}
-                        />
-                      <Button onClick={this.confirmUpdateItem}>Return</Button>
+                      <Button onClick={this.handleChangeRent}>Rent This Book</Button>
+                      <Button onClick={this.handleChangeReturn}>Return This Book</Button>
                       <CancelButton href={'/books/'}>Cancel</CancelButton>
 </BookDiv>
 </Info>
