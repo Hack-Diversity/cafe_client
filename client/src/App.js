@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // Constants
 import * as actions from './actions';
 import { routes } from './constants';
+import DisAlerts from './actions/Alerts'
 
 // Styles
 import { CssBaseline } from '@material-ui/core';
@@ -40,20 +41,26 @@ class App extends Component {
 
     this.state = {
       user: null,
+      alertMsgs: []
     }
   }
 
   setUser = user => this.setState({ user })
 
   clearUser = () => this.setState({ user: null })
+
+  alertMsg = ({ heading, message, variant }) => {
+    this.setState({ alertMsgs: [...this.state.alertMsgs, { heading, message, variant }] })
+  }
+
     render() {
-      const { user } = this.state
+      const { alertMsgs, user } = this.state
 
         const publicViews = (
             <Switch>
                 <Route exact path={routes.HOME} component={Welcome} />
                 <Route exact path={routes.LOG_IN} render={() => (
-                    <Signin setUser={this.setUser} />
+                    <Signin alertMsg={this.alertMsg} setUser={this.setUser} />
                 )} />
                 <Route exact path={routes.LIBRARY} component={ViewBooks} />
                 <Route exact path={routes.ITEM_RENT} component={ViewOne} />
@@ -63,11 +70,12 @@ class App extends Component {
                   )} />
 
                 <AuthUser exact user={user} path={routes.LOG_OUT} render={() => (
-                    <SignOut clearUser={this.clearUser} user={user} />
+                    <SignOut alertMsg={this.alertMsg} clearUser={this.clearUser}
+                      user={user} />
                   )} />
 
                 <AuthUser exact user={user} path={routes.PW_CHANGE} render={() => (
-                    <Change user={user} />
+                    <Change alertMsg={this.alertMsg} user={user} />
                   )} />
 
                 <AuthUser exact user={user} path={routes.ITEM_INSERT} render={({ match }) => (
@@ -75,13 +83,23 @@ class App extends Component {
                   )} />
 
                 <AuthUser exact user={user} path={routes.ITEM_UPDATE} render={({ match }) => (
-                    <ItemUpdate match={match} user={user} />
+                    <ItemUpdate match={match} alertMsg={this.alertMsg} user={user} />
                   )} />
 
             </Switch>
         );
 
         return (
+          <Fragment>
+          {alertMsgs.map((alertMsg, index) => (
+          <DisAlerts
+            key={index}
+            heading={alertMsg.heading}
+            variant={alertMsg.variant}
+            message={alertMsg.message}
+          />
+        ))}
+
             <Router>
                 <CssBaseline />
                 <NavBar />
@@ -92,6 +110,7 @@ class App extends Component {
                     </div>
                 </div>
             </Router>
+          </Fragment>
         );
     };
 };

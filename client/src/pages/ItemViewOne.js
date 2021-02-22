@@ -155,60 +155,61 @@ class ItemViewOne extends Component {
                 this.setState({ ...item });
             });
     }
-
-    handleChangeInputIsbn = async event => {
-        const isbn = event.target.value;
-        this.setState({ isbn });
-    }
-
-    handleChangeInputTitle = async event => {
-      const title = event.target.value;
-      this.setState({ title });
-    }
-
-    handleChangeInputAuthor = async event => {
-        const author = event.target.value;
-        this.setState({ author });
-    }
-
-    handleChangeInputPublication_year = async event => {
-       const publication_year = event.target.value;
-       this.setState({ publication_year });
-    }
-
-    handleChangeInputPublisher = async event => {
-        const publisher = event.target.value;
-        this.setState({ publisher });
-    }
-
-    handleChangeInputImage_url_m = async event => {
-       const image_url_m = event.target.value;
-       this.setState({ image_url_m });
-   }
-
-   handleChangeInputImage_url_l = async event => {
-       const image_url_l = event.target.value;
-       this.setState({ image_url_l });
-   }
-
-   handleChangeInputCopies = async event => {
-       const copies = event.target.value;
-       this.setState({ copies });
-   }
+   //
+   //  handleChangeInputIsbn = async event => {
+   //      const isbn = event.target.value;
+   //      this.setState({ isbn });
+   //  }
+   //
+   //  handleChangeInputTitle = async event => {
+   //    const title = event.target.value;
+   //    this.setState({ title });
+   //  }
+   //
+   //  handleChangeInputAuthor = async event => {
+   //      const author = event.target.value;
+   //      this.setState({ author });
+   //  }
+   //
+   //  handleChangeInputPublication_year = async event => {
+   //     const publication_year = event.target.value;
+   //     this.setState({ publication_year });
+   //  }
+   //
+   //  handleChangeInputPublisher = async event => {
+   //      const publisher = event.target.value;
+   //      this.setState({ publisher });
+   //  }
+   //
+   //  handleChangeInputImage_url_m = async event => {
+   //     const image_url_m = event.target.value;
+   //     this.setState({ image_url_m });
+   // }
+   //
+   // handleChangeInputImage_url_l = async event => {
+   //     const image_url_l = event.target.value;
+   //     this.setState({ image_url_l });
+   // }
+   //
+   // handleChangeInputCopies = async event => {
+   //     const copies = event.target.value;
+   //     this.setState({ copies });
+   // }
 
 
 
    handleChangeRent = async event => {
-
-     this.setState({ available: this.state.available-1 });
+     // const available = this.state.available;
+     this.setState({ available: this.state.available-=1 });
      const available = this.state;
      return this.props.updateSingleItemRent(available)
    }
 
    handleChangeReturn = async event => {
-     const available = this.state.available;
+
      // if(available > 0){
-     this.setState({ available: this.state.available+1 });
+     this.setState({ available: this.state.available+=1 });
+     const available = this.state;
      // this.setState({ isEnable: true })
      return this.props.updateSingleItemRent(available)
    // }

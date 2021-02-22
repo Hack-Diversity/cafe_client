@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 
 import { changePassword } from '../api/auth'
+import messages from '../actions/AlertMessages'
 
 import Form from 'react-bootstrap/Form'
 import styled from 'styled-components'
@@ -43,14 +44,22 @@ class ChangePassword extends Component {
   onChangePassword = event => {
     event.preventDefault()
 
-    const { history, user } = this.props
+    const { alertMsg, history, user } = this.props
 
     changePassword(this.state, user)
-      .then((success) => console.log(success))
+      .then(() => alertMsg({
+        heading: 'Change Password Success',
+        message: messages.changePasswordSuccess,
+        variant: 'success'
+      }))
       .then(() => history.push('/books/list'))
       .catch(error => {
         this.setState({ oldPassword: '', newPassword: '' })
-        console.log(error)
+        alertMsg({
+          heading: 'Change Password Failed with error: ' + error.message,
+          message: messages.changePasswordFailure,
+          variant: 'danger'
+        })
       })
   }
 

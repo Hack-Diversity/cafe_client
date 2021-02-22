@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 
 import { signIn } from '../api/auth'
-// import messages from '../AutoDismissAlert/messages'
+import messages from '../actions/AlertMessages'
 
 // Forms from bootstrap
 import Form from 'react-bootstrap/Form'
@@ -48,26 +48,28 @@ class SignIn extends Component {
   onSignIn = event => {
     event.preventDefault()
 
-    const { history, setUser } = this.props
+    const { alertMsg, history, setUser } = this.props
 
     signIn(this.state)
       .then(res => setUser(res.data.user))
-      .then((success) => console.log(success)
-      // msgAlert({
-      //   heading: 'Sign In Success',
-      //   message: "messages signInSuccess",
-      //   variant: 'success'
-      // })
+      .then((success) => console.log(success))
+      .then(() =>
+      alertMsg({
+        heading: 'Sign In Success',
+        message: messages.signInSuccess,
+        variant: 'success'
+      })
     )
+
       .then(() => history.push('/books/list'))
-      .catch((err) => {
+      .catch(() => {
         this.setState({ email: '', password: '' })
-        console.log(err);
-        // msgAlert({
-        //   heading: 'Sign In Failed',
-        //   message: "messages.signInFailure",
-        //   variant: 'danger'
-        // })
+        // console.log(err);
+        alertMsg({
+          heading: 'Sign In Failed',
+          message: messages.signInFailure,
+          variant: 'danger'
+        })
       })
   }
 

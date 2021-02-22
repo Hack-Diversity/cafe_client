@@ -1,83 +1,32 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchSingleItem, updateSingleItem } from '../actions';
-import { shared } from '../constants';
-import { Redirect } from 'react-router-dom'
+import Form from 'react-bootstrap/Form'
+import messages from '../actions/AlertMessages'
 
 import styled from 'styled-components';
 
-const Title = styled.h1.attrs({
-    className: 'h2',
-
-})`
-    margin-top: 30px
-`;
-
-const Title2 = styled.h1.attrs({
-    className: 'h5',
-
-})`
-    margin-top: 20px
-`;
-
-const Wrapper = styled.div.attrs({
-    className: 'form-group',
-})`
-    margin-top: 0 30px;
-`;
-
-const Label = styled.label`
-    margin: 5px;
-    max-width: 30%;
-`;
-
-const InputText = styled.input.attrs({
-    className: 'form-control',
-})`
-    margin: 5px auto;
-    max-width: 30%;
-    text-align: center;
-`;
-
-// const Fieldset = styled.fieldset.attrs({
-//     className: 'form-control',
-// })`
-//     border-color: transparent;
-//     margin: 1em auto 0.5em;
-//     max-width: 50%;
-//     min-height: 6em;
-// `;
-//
-// const DayInput = styled.input.attrs({
-//     className: '',
-// })`
-//     margin: 5px auto;
-//     text-align: center;
-// `;
-
-const Button = styled.button.attrs({
-    className: 'btn btn-primary',
-})`
-  margin: 15px 15px 15px 5px;
-`;
-
-const CancelButton = styled.a.attrs({
-    className: 'btn btn-danger',
-})`
-  margin: 15px 15px 15px 5px;
-`;
+const ButtonS = styled.button`
+  text-align: center;
+  border-radius: 33px;
+  border: 2px solid #edb442;
+  background: #edb442;
+  color: #00235c;
+  padding: 8px 40px;
+  margin-top: 20px;
+  justifyContent: "center";
+  alignItems: "center";
+  :hover {
+background: #00235c;
+color: #fff;
+cursor: pointer;
+}
+`
 
 class ItemUpdate extends Component {
     constructor(props) {
-        /**
-         * Currently deprecated and now known as the "legacy context":
-         * - https://reactjs.org/docs/legacy-context.html
-         *
-         * TODO: refactor to use new Context API:
-         * - https://reactjs.org/docs/context.html
-         */
         super(props);
         this.state = {
             _id: '',
@@ -169,23 +118,38 @@ class ItemUpdate extends Component {
                 console.log("handleUpdateItem: resp");
                 console.log(resp);
                 if (typeof resp === "object" && (resp.status < 300 && resp.status >= 200)) {
-                    window.alert('Item updated successfully');
+                    this.props.alertMsg({ // remove the props param from the .then()
+                    heading: 'Update Profile Success',
+                    message: messages.updateBookSuccess,
+                    variant: 'success'
+                    })
                     return true;
                 } else {
                     throw resp;
                 }
             })
-            .catch(err => {
-                window.alert(`There was an error updating the item... :(`);
-                console.error("handleUpdateItem: err");
-                console.error(err);
-            });
-    }
+            .catch(() => {
+              this.props.alertMsg({
+                heading: 'Update Profile Failed',
+                message: messages.updateFailure,
+                variant: 'danger'
+              })
+            })
+          }
+
+
 
     confirmUpdateItem = event => {
-        if (window.confirm(`Are you sure you want to update this item? ${this.state._id}`)) {
+
+      if (this.props.alertMsg({ // remove the props param from the .then()
+        heading: 'Update Profile Success',
+        message: messages.updateBookSuccess,
+        variant: 'success'
+      })) {
             return this.handleUpdateItem(event);
+
         }
+        this.props.history.push("/books/list")
     }
 
     render() {
@@ -204,84 +168,151 @@ class ItemUpdate extends Component {
         } = this.state;
 
         return _id && (
-            <Wrapper>
+          <div className="row">
+            <div className="col-sm-10 col-md-8 mx-auto mt-5">
+              {/* using inline style to avoid importing styled components for one single thing */}
+              <h3 style={{ fontWeight: '600', color: '#00235c' }}>Update This Book</h3>
+                <img
+                  src={ image_url_m }
+                  style={{
+                  }}
+                  alt="Book Cover"/>
 
-                <Title>Update:</Title>
-                <Title2>{ title }</Title2>
-                <Label>ISBN: </Label>
-                <InputText
-                    type="number"
-                    defaultValue={isbn}
-                    onChange={this.handleChangeInputName}
-                />
+                <Form onSubmit={this.confirmUpdateItem}>
+                  <Form.Group>
+                    <Form.Label>
+                      { title }
+                    </Form.Label>
+                    <Form.Label>
+                      ISBN:
+                    </Form.Label>
+                    <Form.Control
+                      required
+                      type='number'
+                      defaultValue={isbn}
+                      name="isbn"
+                      onChange={this.handleChangeInputName}
+                      />
+                  </Form.Group>
 
-              <Label>Book Title: </Label>
-                <InputText
-                    type="text"
-                    defaultValue={title}
-                    onChange={this.handleChangeInputTitle}
-                />
+                  <Form.Group>
+                    <Form.Label>
+                      Book Title:
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="title"
+                      defaultValue={title}
+                      onChange={this.handleChangeInputTitle}
 
-                <Label>Author: </Label>
-                <InputText
-                    type="text"
-                    defaultValue={author}
-                    onChange={this.handleChangeInputAuthor}
-                />
+                      />
+                  </Form.Group>
 
-              <Label>Year Published: </Label>
-                <InputText
-                    type="number"
-                    defaultValue={publication_year}
-                    onChange={this.handleChangeInputPublication_year}
-                />
+                  <Form.Group>
+                    <Form.Label>
+                      Author:
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      defaultValue={author}
+                      name="author"
+                      onChange={this.handleChangeInputAuthor}
+                      />
+                  </Form.Group>
 
-                <Label>Publisher: </Label>
-                <InputText
-                    type="text"
-                    defaultValue={publisher}
-                    onChange={this.handleChangeInputPublisher}
-                />
+                  <Form.Group>
+                    <Form.Label>
+                      Year of Publication:
+                    </Form.Label>
+                    <Form.Control
+                      type="number"
+                      name="publication_year"
+                      defaultValue={publication_year}
+                      onChange={this.handleChangeInputPublication_year}
+                      />
+                  </Form.Group>
 
-              <Label>Update Small Image Url: </Label>
-                <InputText
-                    type="text"
-                    defaultValue={image_url_s}
-                    onChange={this.handleChangeInputImage_url_s}
-                />
+                  <Form.Group>
+                    <Form.Label>
+                      Publisher:
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="publisher"
+                      defaultValue={publisher}
+                      onChange={this.handleChangeInputPublisher}
+                      />
+                  </Form.Group>
 
-              <Label>Update Medium Image Url: </Label>
-                <InputText
-                    type="text"
-                    defaultValue={image_url_m}
-                    onChange={this.handleChangeInputImage_url_m}
-                />
+                  <Form.Group>
+                    <Form.Label>
+                      Small Image:
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="image_url_s"
+                      defaultValue={image_url_s}
+                      onChange={this.handleChangeInputImage_url_s}
+                      />
+                  </Form.Group>
 
-              <Label>Update Large Image Url: </Label>
-                <InputText
-                    type="text"
-                    defaultValue={image_url_l}
-                    onChange={this.handleChangeInputImage_url_l}
-                />
+                  <Form.Group>
+                    <Form.Label>
+                      Medium Image:
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="image_url_m"
+                      defaultValue={image_url_m}
+                      onChange={this.handleChangeInputImage_url_m}
+                      />
+                  </Form.Group>
 
-              <Label>Book Copies: </Label>
-                <InputText
-                    type="number"
-                    defaultValue={copies}
-                    onChange={this.handleChangeInputCopies}
-                />
+                  <Form.Group>
+                    <Form.Label>
+                      Large Image:
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="image_url_l"
+                      defaultValue={image_url_l}
+                      onChange={this.handleChangeInputImage_url_l}
+                      />
+                  </Form.Group>
 
-              <Label>Available Copies: </Label>
-                <InputText
-                    type="number"
-                    defaultValue={available}
-                    onChange={this.handleChangeInputAvailable}
-                />
+                  <Form.Group>
+                    <Form.Label>
+                      Book Copies:
+                    </Form.Label>
+                    <Form.Control
+                      type="number"
+                      name="copies"
+                      defaultValue={copies}
+                      onChange={this.handleChangeInputCopies}
+                      />
+                  </Form.Group>
 
+                  <Form.Group>
+                    <Form.Label>
+                      Available Copies:
+                    </Form.Label>
+                    <Form.Control
+                      type="number"
+                      name="available"
+                      defaultValue={available}
+                      onChange={this.handleChangeInputAvailable}
+                      />
+                  </Form.Group>
 
-                <Button onClick={this.confirmUpdateItem}>Update Item</Button>
-                <CancelButton href={'/books/list'}>Cancel</CancelButton>
-            </Wrapper>
+                  <ButtonS variant="primary" type="submit">Update Item</ButtonS>
+
+                  <Link to="/books/list">
+                  <ButtonS type="submit" variant="primary">Go Back</ButtonS>
+                  </Link>
+                </Form>
+              </div>
+            </div>
+
         );
     }
 }
@@ -295,4 +326,4 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => bindActionCreators({ fetchSingleItem, updateSingleItem }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(ItemUpdate);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ItemUpdate));
