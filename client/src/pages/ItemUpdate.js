@@ -6,23 +6,28 @@ import { fetchSingleItem, updateSingleItem } from '../actions';
 import Form from 'react-bootstrap/Form'
 import messages from '../actions/AlertMessages'
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const ButtonS = styled.button`
-  text-align: center;
-  border-radius: 33px;
-  border: 2px solid #edb442;
-  background: #edb442;
-  color: #00235c;
-  padding: 8px 40px;
-  margin-top: 20px;
-  justifyContent: "center";
-  alignItems: "center";
-  :hover {
-background: #00235c;
-color: #fff;
-cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+    border: 2px solid;
+    background: #1b870d;
+    color: #fff;
+    padding: 6px 40px;
+    margin: 30px 20px 60px;
+    justifyContent: "center";
+    alignItems: "center";
+    :hover {
+    background: #e2cbaa;
+    color: #2b1f0e;
+    cursor: pointer;
 }
+  ${props =>
+    props.cancelB &&
+    css`
+    background:  #870e10;
+    `};
 `
 
 class ItemUpdate extends Component {
@@ -149,7 +154,7 @@ class ItemUpdate extends Component {
             return this.handleUpdateItem(event);
 
         }
-        this.props.history.push("/books/list")
+        // this.props.history.push("/books/list")
     }
 
     render() {
@@ -171,18 +176,19 @@ class ItemUpdate extends Component {
           <div className="row">
             <div className="col-sm-10 col-md-8 mx-auto mt-5">
               {/* using inline style to avoid importing styled components for one single thing */}
-              <h3 style={{ fontWeight: '600', color: '#00235c' }}>Update This Book</h3>
+              <h3 style={{ margin: '30px'}}>Update This Book</h3>
                 <img
                   src={ image_url_m }
                   style={{
                   }}
                   alt="Book Cover"/>
-
                 <Form onSubmit={this.confirmUpdateItem}>
                   <Form.Group>
-                    <Form.Label>
+                    <h5 style={{ margin: '30px' }}>
                       { title }
-                    </Form.Label>
+                    </h5>
+                  </Form.Group>
+                  <Form.Group>
                     <Form.Label>
                       ISBN:
                     </Form.Label>
@@ -304,10 +310,10 @@ class ItemUpdate extends Component {
                       />
                   </Form.Group>
 
-                  <ButtonS variant="primary" type="submit">Update Item</ButtonS>
+                  <ButtonS variant="primary" type="submit">Update</ButtonS>
 
                   <Link to="/books/list">
-                  <ButtonS type="submit" variant="primary">Go Back</ButtonS>
+                  <ButtonS cancelB type="submit" variant="primary">Cancel</ButtonS>
                   </Link>
                 </Form>
               </div>
@@ -326,4 +332,4 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => bindActionCreators({ fetchSingleItem, updateSingleItem }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ItemUpdate));
+export default connect(mapStateToProps, mapDispatchToProps)(ItemUpdate);

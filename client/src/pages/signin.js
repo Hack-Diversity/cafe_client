@@ -8,27 +8,32 @@ import messages from '../actions/AlertMessages'
 
 // Forms from bootstrap
 import Form from 'react-bootstrap/Form'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 // import Home from '../routes/Home'
 
 const SpaceDiv = styled.div`
   margin-bottom: 100px;
 `
 const ButtonS = styled.button`
-  text-align: center;
-  border-radius: 33px;
-  border: 2px solid #edb442;
-  background: #edb442;
-  color: #00235c;
-  padding: 8px 40px;
-  margin-top: 20px;
-  justifyContent: "center";
-  alignItems: "center";
-  :hover {
-background: #00235c;
-color: #fff;
-cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+    border: 2px solid;
+    background: #1b870d;
+    color: #fff;
+    padding: 6px 40px;
+    margin: 30px 20px 60px;
+    justifyContent: "center";
+    alignItems: "center";
+    :hover {
+    background: #e2cbaa;
+    color: #2b1f0e;
+    cursor: pointer;
 }
+  ${props =>
+    props.cancelB &&
+    css`
+    background:  #870e10;
+    `};
 `
 
 class SignIn extends Component {
@@ -80,11 +85,11 @@ class SignIn extends Component {
       <div className="row">
         <div className="col-sm-10 col-md-8 mx-auto mt-5">
           {/* using inline style to avoid importing styled components for one single thing */}
-          <h3 style={{ fontWeight: '600', color: '#00235c' }}>Sign In</h3>
+          <h3 style={{ margin: '30px' }}>Sign In</h3>
           <Form onSubmit={this.onSignIn}>
             <SpaceDiv>
               <Form.Group controlId="email">
-                <Form.Label style={{ color: '#00235c' }}>Email address</Form.Label>
+                <Form.Label>Email address</Form.Label>
                 <Form.Control
                   required
                   type="email"
@@ -95,7 +100,7 @@ class SignIn extends Component {
                 />
               </Form.Group>
               <Form.Group controlId="password">
-                <Form.Label style={{ color: '#00235c' }}>Password</Form.Label>
+                <Form.Label>Password</Form.Label>
                 <Form.Control
                   required
                   name="password"
@@ -109,10 +114,10 @@ class SignIn extends Component {
                 variant="primary"
                 type="submit"
               >
-              Submit
+              Sign In
               </ButtonS> {' '}
               <Link to="/">
-                <ButtonS type="submit" variant="primary">Cancel</ButtonS>
+                <ButtonS cancelB type="submit" variant="primary">Cancel</ButtonS>
               </Link>
             </SpaceDiv>
           </Form>

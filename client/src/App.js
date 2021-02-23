@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
 
 // Constants
 import * as actions from './actions';
@@ -33,6 +33,7 @@ import Signin from './pages/signin';
 import SignOut from './pages/signout';
 import Change from './pages/change-pw';
 import AuthUser from './api/authUser'
+
 
 
 class App extends Component {

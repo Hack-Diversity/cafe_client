@@ -45,6 +45,7 @@ class ItemsList extends Component {
             });
     }
 
+
     render() {
         const {
             items,
@@ -52,6 +53,9 @@ class ItemsList extends Component {
             loading
         } = this.props.itemData || {};
         console.log(items);
+
+        const filterCaseInsensitive = ({ id, value }, row) =>
+        row[id] ? row[id].toLowerCase().includes(value.toLowerCase()) : true
 
         const columns = [
           {
@@ -208,6 +212,7 @@ class ItemsList extends Component {
                             defaultPageSize={10}
                             showPageSizeOptions={true}
                             minRows={10}
+                            defaultFilterMethod={filterCaseInsensitive}
                         />
                     ) : (
                         `No items to render... :(`
