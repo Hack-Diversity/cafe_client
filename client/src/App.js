@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // Constants
 import * as actions from './actions';
@@ -15,7 +15,6 @@ import './styles/App.css';
 
 // Static/Stateless
 import {
-    NavBar,
     PageLayout,
     Welcome
 } from './components';
@@ -33,7 +32,8 @@ import Signin from './pages/signin';
 import SignOut from './pages/signout';
 import Change from './pages/change-pw';
 import AuthUser from './api/authUser'
-
+import Links from './components/Links'
+import Footer from './components/Footer'
 
 
 class App extends Component {
@@ -64,10 +64,10 @@ class App extends Component {
                     <Signin alertMsg={this.alertMsg} setUser={this.setUser} />
                 )} />
                 <Route exact path={routes.LIBRARY} component={ViewBooks} />
-                <Route exact path={routes.ITEM_RENT} component={ViewOne} />
+                <Route exact path={routes.ITEM_RENT} alertMsg={this.alertMsg} component={ViewOne} />
 
                 <AuthUser exact user={user} path={`${routes.LIBRARY}/list`} render={({ match }) => (
-                    <ItemsTable match={match} user={user} />
+                    <ItemsTable alertMsg={this.alertMsg} match={match} user={user} />
                   )} />
 
                 <AuthUser exact user={user} path={routes.LOG_OUT} render={() => (
@@ -80,7 +80,7 @@ class App extends Component {
                   )} />
 
                 <AuthUser exact user={user} path={routes.ITEM_INSERT} render={({ match }) => (
-                  <ItemInsert match={match} user={user} />
+                  <ItemInsert match={match} alertMsg={this.alertMsg} user={user} />
                   )} />
 
                 <AuthUser exact user={user} path={routes.ITEM_UPDATE} render={({ match }) => (
@@ -92,6 +92,7 @@ class App extends Component {
 
         return (
           <Fragment>
+
           {alertMsgs.map((alertMsg, index) => (
           <DisAlerts
             key={index}
@@ -102,14 +103,16 @@ class App extends Component {
         ))}
 
             <Router>
+
                 <CssBaseline />
-                <NavBar />
+                <Links user={user}/>
                 <div className="app--main">
                     <PageLayout />
                     <div className="view-container">
                         {publicViews}
                     </div>
                 </div>
+                <Footer />
             </Router>
           </Fragment>
         );

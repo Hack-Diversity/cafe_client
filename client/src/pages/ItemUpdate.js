@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchSingleItem, updateSingleItem } from '../actions';
@@ -124,7 +124,7 @@ class ItemUpdate extends Component {
                 console.log(resp);
                 if (typeof resp === "object" && (resp.status < 300 && resp.status >= 200)) {
                     this.props.alertMsg({ // remove the props param from the .then()
-                    heading: 'Update Profile Success',
+                    heading: 'Update Book - Success',
                     message: messages.updateBookSuccess,
                     variant: 'success'
                     })
@@ -135,7 +135,7 @@ class ItemUpdate extends Component {
             })
             .catch(() => {
               this.props.alertMsg({
-                heading: 'Update Profile Failed',
+                heading: 'Update Failed',
                 message: messages.updateFailure,
                 variant: 'danger'
               })
@@ -147,7 +147,7 @@ class ItemUpdate extends Component {
     confirmUpdateItem = event => {
 
       if (this.props.alertMsg({ // remove the props param from the .then()
-        heading: 'Update Profile Success',
+        heading: 'Book Updated Successfully',
         message: messages.updateBookSuccess,
         variant: 'success'
       })) {

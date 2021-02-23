@@ -34,43 +34,6 @@ const Title = styled.h1`
 
 `
 
-const InfoDiv = styled.div.attrs({
-    className: 'InfoDiv',
-})`
-    margin-left:auto;
-    margin-right:auto;
-    width:1000px;
-    height:100%;
-    float:left;
-`;
-
-const Info = styled.div.attrs({
-    className: 'Info',
-})`
-    padding-top:20px;
-    font-size:20px;
-`;
-
-const LeftColumn = styled.div.attrs({
-    className: 'LeftColumn',
-})`
-    height:100%;
-    width:500px;
-    float:left;
-    margin-left:auto;
-    padding-left:200px;
-`;
-
-const RightColumn = styled.div.attrs({
-    className: 'RightColumn',
-})`
-    height:100%;
-    width:500px;
-    float:left;
-    padding-right:200px;
-`;
-
-
 const Welcome = () =>
     <div className="welcome--container">
     <img src = {banner} style = {{ marginTop: '-20px', width: '100%' }} alt = 'banner'/>

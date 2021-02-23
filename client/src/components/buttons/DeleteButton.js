@@ -16,7 +16,7 @@ class DeleteButton extends Component {
 
         if (
             window.confirm(
-                `Do you want to permanently delete this item? ${this.props.id}`,
+                `Do you want to permanently delete this book? ${this.props.id}`,
             )
         ) {
             this.props.onDelete(this.props.id);

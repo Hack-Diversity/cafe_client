@@ -1,28 +1,54 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchSingleItem, updateSingleItemRent } from '../actions';
 import { shared } from '../constants';
 import { Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import messages from '../actions/AlertMessages'
 
-import styled from 'styled-components';
+// import Modal from 'react-bootstrap/Modal'
+
+import styled, { css } from 'styled-components';
+
+const ButtonS = styled.button`
+    text-align: center;
+    border-radius: 5px;
+    border: 2px solid;
+    background: #1b870d;
+    color: #fff;
+    padding: 6px 40px;
+    margin: 30px 20px 60px;
+    justifyContent: "center";
+    alignItems: "center";
+    :hover {
+    background: #e2cbaa;
+    color: #2b1f0e;
+    cursor: pointer;
+}
+  ${props =>
+    props.cancelB &&
+    css`
+    background:  #870e10;
+    `}
+
+    ${props =>
+      props.rent &&
+      css`
+      background:  #047adb;
+      `}
+`
 
 const Container = styled.div.attrs({
     className: 'Container',
 })`
-    margin-left:auto;
-    margin-right:auto;
-    width:1600px;
-    height:100%;
-    padding-top:40px;
+    width:100%;
+
 `;
 
 const BookDiv = styled.div.attrs({
     className: 'BookDiv',
 })`
-    margin-left:auto;
-    margin-right:auto;
     float:left;
     width:400px;
     height:100%;
@@ -31,18 +57,19 @@ const BookDiv = styled.div.attrs({
 const InfoDiv = styled.div.attrs({
     className: 'InfoDiv',
 })`
-    margin-left:auto;
-    margin-right:auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
     width:1000px;
     height:100%;
     float:left;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color:#EBEBEB
 `;
 
-const Info = styled.div.attrs({
-    className: 'Info',
-})`
-    padding-top:20px;
-    font-size:20px;
+const Info = styled.div`
+
+  padding-top: 50px;
 `;
 
 const LeftColumn = styled.div`
@@ -59,14 +86,15 @@ const RightColumn = styled.div`
     width:500px;
     float:left;
     padding-right:200px;
-    text-align: left;
+    text-align: right;
 `;
 
-const Title = styled.h1`
-    margin: 30px 0 40px;
+const Title = styled.h3`
+    margin: 30px 0 0;
+    text-align: center;
 `;
 
-const Title2 = styled.h1.attrs({
+const Title2 = styled.h5.attrs({
     className: 'h5',
 
 })`
@@ -75,63 +103,16 @@ const Title2 = styled.h1.attrs({
 
 `;
 
-const Wrapper = styled.div.attrs({
-    className: 'form-group',
-})`
-    margin-top: 0 30px;
-`;
+const Wrapper = styled.div`
+    widht: 100%;
+    padding: 50px 0;
 
-const Label = styled.label`
-    margin: 5px;
-    max-width: 30%;
-`;
-
-const InputText = styled.input.attrs({
-    className: 'form-control',
-})`
-    margin: 5px auto;
-    max-width: 30%;
-    text-align: center;
-`;
-
-// const Fieldset = styled.fieldset.attrs({
-//     className: 'form-control',
-// })`
-//     border-color: transparent;
-//     margin: 1em auto 0.5em;
-//     max-width: 50%;
-//     min-height: 6em;
-// `;
-//
-// const DayInput = styled.input.attrs({
-//     className: '',
-// })`
-//     margin: 5px auto;
-//     text-align: center;
-// `;
-
-const Button = styled.button.attrs({
-    className: 'btn btn-primary',
-})`
-  margin: 15px 15px 15px 5px;
-`;
-
-const CancelButton = styled.a.attrs({
-    className: 'btn btn-danger',
-})`
-  margin: 15px 15px 15px 5px;
 `;
 
 class ItemViewOne extends Component {
     constructor(props) {
-        /**
-         * Currently deprecated and now known as the "legacy context":
-         * - https://reactjs.org/docs/legacy-context.html
-         *
-         * TODO: refactor to use new Context API:
-         * - https://reactjs.org/docs/context.html
-         */
         super(props);
+        // this.handleClick = this.handleClick.bind(this)
         this.state = {
             _id: '',
             isbn: '',
@@ -155,64 +136,39 @@ class ItemViewOne extends Component {
                 this.setState({ ...item });
             });
     }
-   //
-   //  handleChangeInputIsbn = async event => {
-   //      const isbn = event.target.value;
-   //      this.setState({ isbn });
-   //  }
-   //
-   //  handleChangeInputTitle = async event => {
-   //    const title = event.target.value;
-   //    this.setState({ title });
-   //  }
-   //
-   //  handleChangeInputAuthor = async event => {
-   //      const author = event.target.value;
-   //      this.setState({ author });
-   //  }
-   //
-   //  handleChangeInputPublication_year = async event => {
-   //     const publication_year = event.target.value;
-   //     this.setState({ publication_year });
-   //  }
-   //
-   //  handleChangeInputPublisher = async event => {
-   //      const publisher = event.target.value;
-   //      this.setState({ publisher });
-   //  }
-   //
-   //  handleChangeInputImage_url_m = async event => {
-   //     const image_url_m = event.target.value;
-   //     this.setState({ image_url_m });
-   // }
-   //
-   // handleChangeInputImage_url_l = async event => {
-   //     const image_url_l = event.target.value;
-   //     this.setState({ image_url_l });
-   // }
-   //
-   // handleChangeInputCopies = async event => {
-   //     const copies = event.target.value;
-   //     this.setState({ copies });
-   // }
 
-
+    // handleClick() {
+    //   const minNum = 1;
+    //   const maxNum = 100;
+    //   const randNum = minNum + Math.random() * (maxNum - minNum)
+    //   this.setState({ random: this.state.random+randNum})
+    // }
+    //
+    // openModal = () => this.setState({ isOpen: true })
+    // closeModal = () => this.setState({ isOpen: false})
 
    handleChangeRent = async event => {
-     // const available = this.state.available;
+
      this.setState({ available: this.state.available-=1 });
      const available = this.state;
      return this.props.updateSingleItemRent(available)
+
    }
 
    handleChangeReturn = async event => {
+     const copies = this.state.copies
+     const available = this.state.available;
 
-     // if(available > 0){
-     this.setState({ available: this.state.available+=1 });
+     if(available < copies){
+
      const available = this.state;
-     // this.setState({ isEnable: true })
+     this.setState({ isEnable: true })
+     this.setState({ available: this.state.available+=1 })
      return this.props.updateSingleItemRent(available)
-   // }
+   }
+   else {
+     this.setState({ isEnable: true })
+   }
    }
 
     handleUpdateItem = event => {
@@ -236,17 +192,35 @@ class ItemViewOne extends Component {
             .then(resp => {
                 console.log("handleUpdateItem: resp");
                 console.log(resp);
-
+                if (typeof resp === "object" && (resp.status < 300 && resp.status >= 200)) {
+                    this.props.alertMsg({ // remove the props param from the .then()
+                    heading: 'Sucess',
+                    message: messages.rentBookSuccess,
+                    variant: 'success'
+                    })
+                    return true;
+            } else {
+              throw resp
+            }
+          })
+          .catch(() => {
+            this.props.alertMsg({
+              heading: 'Error',
+              message: messages.rentFailure,
+              variant: 'danger'
             })
-            .catch(err => {
-
-                console.error("handleUpdateItem: err");
-                console.error(err);
-            });
+          })
     }
 
     confirmUpdateItem = event => {
-        return this.handleUpdateItem(event);
+      if (this.props.alertMsg({ // remove the props param from the .then()
+        heading: 'Sucess',
+        message: messages.rentBookSuccess,
+        variant: 'success'
+      })) {
+            return this.handleUpdateItem(event);
+
+        }
 
     }
 
@@ -281,11 +255,9 @@ class ItemViewOne extends Component {
               { title }
             </Title>
               <InfoDiv>
-                <Info>
-
 
                     <LeftColumn>
-                      <Label>ISBN: </Label>
+                      <Title2>ISBN: </Title2>
                       <Title2>AUTHOR:</Title2>
                       <Title2>PUBLICATION YEAR:</Title2>
                       <Title2>PUBLISHER:</Title2>
@@ -301,13 +273,17 @@ class ItemViewOne extends Component {
                       <Title2>{ copies }</Title2>
                       <Title2>{ available }</Title2>
                     </RightColumn>
-                    <BookDiv>
-                      <Button onClick={this.handleChangeRent}>Rent This Book</Button>
-                      <Button onClick={this.handleChangeReturn}>Return This Book</Button>
-                      <CancelButton href={'/books/'}>Cancel</CancelButton>
-</BookDiv>
-</Info>
-</InfoDiv>
+                    </InfoDiv>
+                    <Info>
+
+                      <ButtonS onClick={this.handleChangeRent} disabled={!this.state.available} enabled={!this.state.isEnabled}>Rent This Book</ButtonS>
+                      <ButtonS rent onClick={this.handleChangeReturn} disabled={this.state.isEnabled} enabled={this.state.available}>Return This Book</ButtonS>
+                      <Link to="/books/">
+                      <ButtonS cancelB type="submit" variant="primary">Go Back</ButtonS>
+                      </Link>
+                    </Info>
+
+
               </Container>
           </Wrapper>
         );

@@ -10,8 +10,8 @@ class SignOut extends Component {
 
     signOut(user)
       .finally(() => alertMsg({
-        heading: 'Signed Out Successfully',
-        messagE: messages.signOutSuccess,
+        heading: `Signed Out Successfully, Goodbye!`,
+        message: messages.signOutSuccess + ' ' + this.props.user.email +'!',
         variant: 'success'
       }))
       .then(() => console.log('success'))

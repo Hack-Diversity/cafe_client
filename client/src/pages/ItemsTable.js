@@ -7,6 +7,7 @@ import * as actions from '../actions';
 import { DeleteButton } from '../components/buttons';
 import Img from 'react-cool-img'
 import defaultImg from './images/noimage.png'
+import messages from '../actions/AlertMessages'
 
 import styled from 'styled-components';
 
@@ -14,14 +15,11 @@ import 'react-table-6/react-table.css';
 
 const Wrapper = styled.div`
     padding: 0 40px 40px 40px;
+    width: 100%;
 `;
 
 const Container = styled.div`
     padding: 50px;
-`;
-
-const HomeLinks = styled.div`
-
 `;
 
 class ItemsList extends Component {
@@ -42,7 +40,19 @@ class ItemsList extends Component {
                 console.log("handleRemoveItem: resp");
                 console.log(resp);
                 this.props.fetchAllItems();
-            });
+            })
+            .then(() => this.props.alertMsg({ // remove the props param from the .then()
+              heading: 'Deleted Book Successfully',
+              message: messages.deleteBookSuccess,
+              variant: 'success'
+            }))
+            .catch(() => {
+              this.props.alertMsg({
+                heading: 'Delete Failed',
+                message: messages.deleteFailure,
+                variant: 'danger'
+              })
+            })
     }
 
 
@@ -192,15 +202,7 @@ class ItemsList extends Component {
               <Container>
 
                 <h4>Welcome, {this.props.user.email}</h4>
-                <HomeLinks>
-                <Link to={'/book-create'}>Create a Book</Link>
-                </HomeLinks>
-                <HomeLinks>
-                <Link to={'/admin-password'}>Change Password</Link>
-                </HomeLinks>
-                <HomeLinks>
-                <Link to={'/admin-signout'}>Logout</Link>
-              </HomeLinks>
+
               </Container>
                 {(
                     (items || []).length > 0 // defeats the purpose of using `isLoading` prop?
