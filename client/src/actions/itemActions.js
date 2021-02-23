@@ -1,6 +1,5 @@
 import * as types from './actionTypes';
 import api from '../api';
-import axios from 'axios';
 
 // TODO - make a utility for logging?
 

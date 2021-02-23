@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchSingleItem, updateSingleItemRent } from '../actions';
-import { shared } from '../constants';
-import { Redirect } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import messages from '../actions/AlertMessages'
 
@@ -165,10 +163,13 @@ class ItemViewOne extends Component {
      this.setState({ isEnable: true })
      this.setState({ available: this.state.available+=1 })
      return this.props.updateSingleItemRent(available)
+
    }
    else {
      this.setState({ isEnable: true })
    }
+
+
    }
 
     handleUpdateItem = event => {
