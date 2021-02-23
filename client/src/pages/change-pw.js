@@ -5,26 +5,31 @@ import { changePassword } from '../api/auth'
 import messages from '../actions/AlertMessages'
 
 import Form from 'react-bootstrap/Form'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const SpaceDiv = styled.div`
   margin-bottom: 100px;
 `
 const ButtonS = styled.button`
-  text-align: center;
-  border-radius: 33px;
-  border: 2px solid #edb442;
-  background: #edb442;
-  color: #00235c;
-  padding: 8px 40px;
-  margin-top: 20px;
-  justifyContent: "center";
-  alignItems: "center";
-  :hover {
-background: #00235c;
-color: #fff;
-cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+    border: 2px solid;
+    background: #1b870d;
+    color: #fff;
+    padding: 6px 40px;
+    margin: 30px 20px 60px;
+    justifyContent: "center";
+    alignItems: "center";
+    :hover {
+    background: #e2cbaa;
+    color: #2b1f0e;
+    cursor: pointer;
 }
+  ${props =>
+    props.cancelB &&
+    css`
+    background:  #870e10;
+    `};
 `
 
 class ChangePassword extends Component {
@@ -69,7 +74,7 @@ class ChangePassword extends Component {
     return (
       <div className="row">
         <div className="col-sm-10 col-md-8 mx-auto mt-5">
-          <h3>Change Password</h3>
+          <h3 style={{ margin: '30px'}}>Change Password</h3>
           <Form onSubmit={this.onChangePassword}>
             <SpaceDiv>
               <Form.Group controlId="oldPassword">
@@ -100,8 +105,8 @@ class ChangePassword extends Component {
               >
                 Submit
               </ButtonS> {' '}
-              <Link to="/">
-                <ButtonS type="submit" variant="primary">Cancel</ButtonS>
+              <Link to="/books/list">
+                <ButtonS cancelB type="submit" variant="primary">Cancel</ButtonS>
               </Link>
             </SpaceDiv>
           </Form>

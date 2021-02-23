@@ -1,10 +1,34 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom'
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {insertSingleItem} from '../actions';
-import {shared} from '../constants';
+import Form from 'react-bootstrap/Form'
+import messages from '../actions/AlertMessages'
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+const ButtonS = styled.button`
+    text-align: center;
+    border-radius: 5px;
+    border: 2px solid;
+    background: #1b870d;
+    color: #fff;
+    padding: 6px 40px;
+    margin: 30px 20px 60px;
+    justifyContent: "center";
+    alignItems: "center";
+    :hover {
+    background: #e2cbaa;
+    color: #2b1f0e;
+    cursor: pointer;
+}
+  ${props =>
+    props.cancelB &&
+    css`
+    background:  #870e10;
+    `};
+`
 
 const Title = styled.h1.attrs({className: 'h1'})
 ``;
@@ -35,36 +59,27 @@ const InputText = styled.input.attrs({className: 'form-control'})
         max-width: 75%;
     }
 `;
+//
+// const Fieldset = styled.fieldset.attrs({className: 'form-control'})
+// `
+//     background-color: transparent;
+//     border-color: transparent;
+//     margin: 1em auto 0.5em;
+//     max-width: 50%;
+//     min-height: 6em;
+//
+//     @media screen and (max-width: 420px) {
+//         height: auto;
+//         max-width: 75%;
+//     }
+// `;
+//
+// const DayInput = styled.input.attrs({className: ''})
+// `
+//     margin: 5px 5px 5px auto;
+//     text-align: center;
+// `;
 
-const Fieldset = styled.fieldset.attrs({className: 'form-control'})
-`
-    background-color: transparent;
-    border-color: transparent;
-    margin: 1em auto 0.5em;
-    max-width: 50%;
-    min-height: 6em;
-
-    @media screen and (max-width: 420px) {
-        height: auto;
-        max-width: 75%;
-    }
-`;
-
-const DayInput = styled.input.attrs({className: ''})
-`
-    margin: 5px 5px 5px auto;
-    text-align: center;
-`;
-
-const Button = styled.button.attrs({className: 'btn btn-primary'})
-`
-  margin: 15px 15px 15px 5px;
-`;
-
-const CancelButton = styled.a.attrs({className: 'btn btn-danger'})
-`
-  margin: 15px 15px 15px 5px;
-`;
 
 class ItemInsert extends Component {
   constructor(props) {
@@ -172,7 +187,11 @@ class ItemInsert extends Component {
       console.log("handleInsertItem: resp");
       console.log(resp);
       if (typeof resp === "object" && (resp.status < 300 && resp.status >= 200)) {
-        window.alert('Item inserted successfully');
+        this.props.alertMsg({ // remove the props param from the .then()
+        heading: 'Book Created Successfully',
+        message: messages.createBookSuccess,
+        variant: 'success'
+        })
         this.setState({
           isbn: '',
           title: '',
@@ -188,11 +207,13 @@ class ItemInsert extends Component {
       } else {
         throw resp;
       }
-    }).catch(err => {
-      // TODO: pass error object correctly so that things like validation errors can be displayed to user
-      window.alert(`There was an error creating the item... :(`);
-      console.log("handleInsertItem: err");
-      console.log(err);
+    })
+    .catch(() => {
+      this.props.alertMsg({
+        heading: 'Create Failed',
+        message: messages.createFailure,
+        variant: 'danger'
+      })
     })
   }
 
@@ -215,71 +236,122 @@ class ItemInsert extends Component {
     // } = shared;
 
     return (
-      <Wrapper>
-      <Title> Add a Book </Title>
-        <Label>ISBN:</Label>
-        <InputText
+      <div className="row">
+        <div className="col-sm-10 col-md-8 mx-auto mt-5">
+          {/* using inline style to avoid importing styled components for one single thing */}
+          <h3 style={{ margin: '30px'}}>Create a New Book</h3>
+
+      <Form onSubmit={this.handleInsertItem}>
+
+        <Form.Group>
+        <Form.Label>ISBN:</Form.Label>
+        <Form.Control
         type="number"
+        name="isbn"
         value={isbn}
         onChange={this.handleChangeInputIsbn}
         />
-      <Label>Book Title:</Label>
-        <InputText
+      </Form.Group>
+
+      <Form.Group>
+      <Form.Label>Book Title:</Form.Label>
+        <Form.Control
         type="text"
+        name="title"
         value={title}
         onChange={this.handleChangeInputTitle}
         />
-      <Label>Author: </Label>
-        <InputText
+      </Form.Group>
+
+      <Form.Group>
+      <Form.Label>Author: </Form.Label>
+        <Form.Control
         type="text"
+        name="author"
         value={author}
         onChange={this.handleChangeInputAuthor}
       />
-     <Label>Year of Publication: </Label>
-       <InputText
+    </Form.Group>
+
+    <Form.Group>
+     <Form.Label>Year of Publication: </Form.Label>
+       <Form.Control
        type="number"
+       name="publication_year"
        value={publication_year}
        onChange={this.handleChangeInputPublication_year}
       />
-      <Label>Publisher: </Label>
-        <InputText
+    </Form.Group>
+
+      <Form.Group>
+      <Form.Label>Publisher: </Form.Label>
+        <Form.Control
         type="text"
+        name="publisher"
         value={publisher}
         onChange={this.handleChangeInputPublisher}
       />
-    <Label>Small Image Url: </Label>
-      <InputText
+    </Form.Group>
+
+  <Form.Group>
+    <Form.Label>Small Image Url: </Form.Label>
+      <Form.Control
       type="text"
+      name="image_url_s"
       value={image_url_s}
       onChange={this.handleChangeInputImage_url_s}
     />
-   <Label>Medium Image Url: </Label>
-      <InputText
+  </Form.Group>
+
+  <Form.Group>
+   <Form.Label>Medium Image Url: </Form.Label>
+      <Form.Control
       type="text"
+      name="image_url_m"
       value={image_url_m}
       onChange={this.handleChangeInputImage_url_m}
     />
-   <Label>Large Image Url: </Label>
-     <InputText
+  </Form.Group>
+
+  <Form.Group>
+   <Form.Label>Large Image Url: </Form.Label>
+     <Form.Control
       type="text"
+      name="image_url_l"
       value={image_url_l}
       onChange={this.handleChangeInputImage_url_l}
     />
-   <Label>Book Copies: </Label>
-    <InputText
+  </Form.Group>
+
+  <Form.Group>
+   <Form.Label>Total Copies: </Form.Label>
+    <Form.Control
     type="number"
+    name="copies"
     value={copies}
     onChange={this.handleChangeInputCopies}
    />
-   <Label>Available: </Label>
-    <InputText
+ </Form.Group>
+
+  <Form.Group>
+   <Form.Label>Available Copies: </Form.Label>
+    <Form.Control
     type="number"
+    name="available"
     value={available}
     onChange={this.handleChangeInputAvailable}
    />
- <Button onClick = {this.handleInsertItem}> Add Book </Button>
-   <CancelButton href = {'/books/list'}> Cancel </CancelButton>
-     </Wrapper>);
+ </Form.Group>
+
+ <ButtonS variant="primary" type="submit"> Add Book </ButtonS>
+
+   <Link to="/books/list">
+   <ButtonS cancelB type="submit" variant="primary">Cancel</ButtonS>
+   </Link>
+</Form>
+</div>
+</div>
+   );
    }
 }
 
