@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchSingleItem, updateSingleItem } from '../actions';
@@ -183,6 +183,7 @@ class ItemUpdate extends Component {
                   }}
                   alt="Book Cover"/>
                 <Form onSubmit={this.confirmUpdateItem}>
+
                   <Form.Group>
                     <h5 style={{ margin: '30px' }}>
                       { title }
@@ -310,8 +311,9 @@ class ItemUpdate extends Component {
                       />
                   </Form.Group>
 
+                  <Link to="/books/list">
                   <ButtonS variant="primary" type="submit">Update</ButtonS>
-
+                  </Link>
                   <Link to="/books/list">
                   <ButtonS cancelB type="submit" variant="primary">Cancel</ButtonS>
                   </Link>
