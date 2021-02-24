@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReactTable from 'react-table-6';
 import * as actions from '../actions';
-import { DeleteButton } from '../components/buttons';
 import Img from 'react-cool-img'
 import defaultImg from './images/noimage.png'
 
