@@ -236,7 +236,7 @@ class ItemInsert extends Component {
     // } = shared;
 
     return (
-      <div className="row">
+      <div className="row" style={{ width: '100%'}}>
         <div className="col-sm-10 col-md-8 mx-auto mt-5">
           {/* using inline style to avoid importing styled components for one single thing */}
           <h3 style={{ margin: '30px'}}>Create a New Book</h3>

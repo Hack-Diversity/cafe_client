@@ -82,7 +82,7 @@ class SignIn extends Component {
     const { email, password } = this.state
 
     return (
-      <div className="row">
+      <div className="row" style={{ width: '100%'}}>
         <div className="col-sm-10 col-md-8 mx-auto mt-5">
           {/* using inline style to avoid importing styled components for one single thing */}
           <h3 style={{ margin: '30px' }}>Sign In</h3>

@@ -248,7 +248,7 @@ class ItemViewOne extends Component {
                 src={ image_url_l }
                 style={{
                   float: 'left',
-                  marginLeft: '100px'
+                  marginLeft: '30px'
                 }}
                 alt="Book Cover"/>
               </BookDiv>
